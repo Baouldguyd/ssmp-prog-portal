@@ -66,7 +66,7 @@ const Sidebar = () => {
 
         <ul className="pt-20 ml-2">
           {Menus.map((menu, index) => (
-            <Link>
+            <div >
               <li
                 key={index}
                 className={`text-black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-blue-500 hover:text-white rounded-md duration-300 ${
@@ -77,7 +77,7 @@ const Sidebar = () => {
                   {menu.icon ? menu.icon : <RiDashboardFill />}
                 </span>
                 {menu.to ? (
-                <Link to={menu.to}>
+                <Link key={index} to={menu.to}>
                   <span
                     className={`text-base font-medium flex-1 duration-200 ${
                       !open && "hidden"
@@ -111,7 +111,7 @@ const Sidebar = () => {
                     className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-8 hover:bg-blue-500 rounded-md"
                   >
                     {submenuItem.to ? (
-                      <Link to={submenuItem.to}>{submenuItem.title}</Link>
+                      <Link key={index} to={submenuItem.to}>{submenuItem.title}</Link>
                     ) : (
                       submenuItem.title
                     )}
@@ -119,7 +119,7 @@ const Sidebar = () => {
                 ))}
               </ul>
               )}
-            </Link>
+            </div>
           ))}
         </ul>
       </div>

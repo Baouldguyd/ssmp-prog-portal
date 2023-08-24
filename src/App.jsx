@@ -14,7 +14,7 @@ import Upload from './Pages/Upload';
 function App() {
   return (
 
-      <Router>
+      
         <Routes>
           <Route path='/' element={<Signin/>} />
           <Route path='/dashboard' element={<Dashboard/>} />
@@ -29,7 +29,7 @@ function App() {
 
         </Routes>
         
-      </Router>
+    
 
     
   );

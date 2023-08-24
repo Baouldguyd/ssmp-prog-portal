@@ -3,16 +3,49 @@ import SailLogo from "../../assets/SailInnovationLogo.png";
 import { Button, Col, Form, Input, Row } from "antd";
 import useGatherInputFields from "../../Hooks/useGatheInputFields";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../constants/baseUrl";
 import toast from "react-hot-toast";
+import axios from 'axios'
+
 
 const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState();
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const [signInInfo, setsignInInfo] = useState({
+    email: '',
+    password: '',
+  });
+ 
+  //This state holds the error messages and allows the display of it when there issues with the form inputs
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setsignInInfo((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+    if (!signInInfo.email) {
+      newErrors.email = 'Email is required';
+    }
+    if (!signInInfo.password) {
+      newErrors.password = 'Password is required';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+ /*  useEffect(() => {
     const isAdmin =
       localStorage.getItem("token") &&
       localStorage.getItem("userRole") === "ADMIN";
@@ -29,48 +62,55 @@ const Signin = () => {
         replace: true,
       });
     }
-  }, [navigate]);
+  }, [navigate]); */
 
   const loginHandler = async () => {
     setLoading(true);
     try {
-      const logIn = await fetch(`${BASE_URL}signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
+      if (validateForm()) {
+        const { email, password } = signInInfo;
+    console.log(email , password);
+    const response = await axios.post(
+        process.env.REACT_APP_SSMP_BACKEND_API + "login", { email, password }
+    )
+    console.log(response);
+    setMessage(response.data.responseMessage?.toUpperCase());
+    if (response.data.responseCode === "00") {
+      toast.success(response.responseMessage, {
+        duration: 4000,
+        position: "top-center",
       });
-      const response = await logIn.json();
-      // console.log(response);
-      if (logIn.ok) {
-        toast.success(response.responseMessage, {
-          duration: 4000,
-          position: "top-center",
-        });
-      }
-      if (response?.data?.role === "ADMIN") {
-        navigate("/dashboard", {
-          replace: true,
-        });
-      }
-      
-      
-      if (!logIn.ok) {
+        setMessage('Login successful');
+        navigate('/dashboard');
+      } else {
+        // User's credentials are not valid
+        setMessage('Invalid credentials');
         toast.error(response.responseMessage, {
           duration: 4000,
           position: "top-center",
         });
-      }
-      localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token);
       localStorage.setItem("userRole", response.data.role);
       setLoading(false);
-    } catch (error) {
+      console.log(response);
+    }}} catch (error) {
       setLoading(false);
       console.log(error);
     }
   };
-  const { setEventInputs } = useGatherInputFields(setLoginData);
+      // console.log(response);
+      
+      
+      
+      /* if (!logIn.ok) {
+        toast.error(response.responseMessage, {
+          duration: 4000,
+          position: "top-center",
+        });
+      } */
+      
+    
+  
 
   return (
     <div className=" grid-cols-2  h-[100svh]">
@@ -109,14 +149,13 @@ const Signin = () => {
                     ]}
                   >
                     <Input
-                      onChange={(e) => {
-                        setEventInputs(e.target.value, "email");
-                      }}
+                      onChange={handleInputChange}
                       name="email"
                       type="email"
                       id="email"
                       placeholder="Email Address"
                       className="py-3"
+                      
                     />
                   </Form.Item>
                 </Col>
@@ -131,12 +170,10 @@ const Signin = () => {
                     ]}
                   >
                     <Input.Password
-                      onChange={(e) => {
-                        setEventInputs(e.target.value, "password");
-                      }}
+                      onChange={handleInputChange}
                       name="password"
                       placeholder="Password"
-                      type="text"
+                      type="password"
                       id="password"
                       className="py-3"
                     />
