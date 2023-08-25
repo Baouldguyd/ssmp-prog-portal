@@ -1,18 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import SailLogo from "../../assets/SailInnovationLogo.png";
 import { Button, Col, Form, Input, Row } from "antd";
 import useGatherInputFields from "../../Hooks/useGatheInputFields";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from 'axios'
 
 
 const Signin = () => {
+
+
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState();
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
+
+useLayoutEffect(()=>{
+  document.title = "Login | Sail Admin Portal"
+  if(sessionStorage.getItem("user")){
+    window.location.href= "/dashboard"
+  }
+})
 
   const [signInInfo, setsignInInfo] = useState({
     email: '',
@@ -45,24 +54,7 @@ const Signin = () => {
     return Object.keys(newErrors).length === 0;
   };
 
- /*  useEffect(() => {
-    const isAdmin =
-      localStorage.getItem("token") &&
-      localStorage.getItem("userRole") === "ADMIN";
-    const isUser =
-      localStorage.getItem("token") &&
-      localStorage.getItem("userRole") === "USER";
-    if (isAdmin) {
-      navigate("/dashboard/details", {
-        replace: true,
-      });
-    }
-    if (isUser) {
-      navigate("/user/dashboard/", {
-        replace: true,
-      });
-    }
-  }, [navigate]); */
+
 
   const loginHandler = async () => {
     setLoading(true);
@@ -73,24 +65,25 @@ const Signin = () => {
     const response = await axios.post(
         process.env.REACT_APP_SSMP_BACKEND_API + "login", { email, password }
     )
-    console.log(response);
+    console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());
     if (response.data.responseCode === "00") {
-      toast.success(response.responseMessage, {
+      toast.success(response.data.responseMessage, {
         duration: 4000,
         position: "top-center",
       });
+      sessionStorage.setItem("token", response.data.data.token);
+      sessionStorage.setItem("userRole", response.data.data.role);
         setMessage('Login successful');
         navigate('/dashboard');
       } else {
         // User's credentials are not valid
         setMessage('Invalid credentials');
-        toast.error(response.responseMessage, {
+        toast.error(response.data.responseMessage, {
           duration: 4000,
           position: "top-center",
         });
-        localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userRole", response.data.role);
+        
       setLoading(false);
       console.log(response);
     }}} catch (error) {
@@ -98,18 +91,7 @@ const Signin = () => {
       console.log(error);
     }
   };
-      // console.log(response);
-      
-      
-      
-      /* if (!logIn.ok) {
-        toast.error(response.responseMessage, {
-          duration: 4000,
-          position: "top-center",
-        });
-      } */
-      
-    
+  
   
 
   return (
@@ -193,7 +175,21 @@ const Signin = () => {
                     Sign In
                   </Button>
                 </Col>
+                
               </Row>
+              <Col className=" m-auto" span={20}>
+                <Link to={"/signup"}>
+                  <Button
+                    
+                    type="primary"
+                    htmlType="button"
+                    className=" greenHover bg-green-600 hover:!bg-green-500 !important mt-10 flex items-center  text-[1.3rem] justify-center py-5 "
+                    block
+                  >
+                    Create new account
+                  </Button>
+                  </Link>
+                </Col>
             </Form>
           </div>
         </div>
