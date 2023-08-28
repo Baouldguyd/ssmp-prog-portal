@@ -32,7 +32,7 @@ const Reset = () => {
     };
 
 
-    const url = "https://ssmp-api.onrender.com/api/v1/user/changePassword";
+    const url = "https://ssmp-api.onrender.com/api/v1/user/resetPassword";
 
     try {
       const response = await fetch(url, {

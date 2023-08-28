@@ -68,8 +68,8 @@ useLayoutEffect(()=>{
     console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());
     if (response.data.responseCode === "00")
-     {const userRole = response.data.data.userRole;
-      if (response.data.data.userRole === "admin") {
+     {const userRole = response.data.data.role;
+      if (userRole === "ADMIN") {
       toast.success(response.data.responseMessage, {
         duration: 4000,
         position: "top-center",
@@ -79,9 +79,11 @@ useLayoutEffect(()=>{
         
           // Check if the user is an admin
           sessionStorage.setItem("token", response.data.data.token);
-          sessionStorage.setItem("userRole", userRole);
+          sessionStorage.setItem("role", response.data.data.role);
           setMessage('Login successful');
+          console.log('before nav');
           navigate('/dashboard');
+          console.log('after nav');
         } 
       } else {
         // User's credentials are not valid

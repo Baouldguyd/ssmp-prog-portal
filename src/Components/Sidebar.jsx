@@ -68,7 +68,7 @@ const Sidebar = () => {
 
         <ul className="pt-20 ml-2">
           {Menus.map((menu, index) => (
-            <div >
+            <div key={index}>
               <li
                 key={index}
                 className={`text-black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-blue-500 hover:text-white rounded-md duration-300 ${

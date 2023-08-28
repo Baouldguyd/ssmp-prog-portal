@@ -69,7 +69,7 @@ useLayoutEffect(()=>{
         const { email, password } = signInInfo;
     console.log(email , password);
     const response = await axios.post(
-        process.env.REACT_APP_SSMP_BACKEND_API + "login", { email }
+        process.env.REACT_APP_SSMP_BACKEND_API + "forgotPassword", { email }
     )
     console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());

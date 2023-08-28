@@ -19,7 +19,7 @@ import Tasks from './Pages/Tasks/Tasks';
 import LogOut from './Pages/LogOut'
 
 const ProtectedRoutes = ({children}) =>{
-  if(sessionStorage.getItem("userRole")){
+  if(sessionStorage.getItem("role")){
     return children
   }else{
     return <Navigate to={"/"} replace={true}/>
@@ -58,7 +58,7 @@ function App() {
           <ProtectedRoutes><Admin/></ProtectedRoutes>} />
           <Route path='/pending' element={
           <ProtectedRoutes><PendingApplicants/></ProtectedRoutes>} />
-//Profile
+
         </Routes>
         
     
