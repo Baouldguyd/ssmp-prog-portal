@@ -67,15 +67,22 @@ useLayoutEffect(()=>{
     )
     console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());
-    if (response.data.responseCode === "00") {
+    if (response.data.responseCode === "00")
+     {const userRole = response.data.data.role;
+      if (userRole === "admin") {
       toast.success(response.data.responseMessage, {
         duration: 4000,
         position: "top-center",
       });
-      sessionStorage.setItem("token", response.data.data.token);
-      sessionStorage.setItem("userRole", response.data.data.role);
-        setMessage('Login successful');
-        navigate('/dashboard');
+      
+      
+        
+          // Check if the user is an admin
+          sessionStorage.setItem("token", response.data.data.token);
+          sessionStorage.setItem("userRole", userRole);
+          setMessage('Login successful');
+          navigate('/dashboard');
+        } 
       } else {
         // User's credentials are not valid
         setMessage('Invalid credentials');
