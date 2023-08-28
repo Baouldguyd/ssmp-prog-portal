@@ -13,7 +13,8 @@ import Upload from './Pages/Upload';
 import { Navigate } from 'react-router-dom';
 import Profile from './Pages/Profile/Profile';
 import SignUp from './Pages/SignUp/SignUp';
-
+import Forgot from './Pages/Signin/ForgotPass'
+import Reset from './Pages/Signin/ResetPassword'
 
 const ProtectedRoutes = ({children}) =>{
   if(sessionStorage.getItem("userRole")){
@@ -30,6 +31,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Signin/>} />
           <Route path='/signup' element={<SignUp/>} />
+          <Route path='/forgotpass' element={<Forgot/>} />
+          <Route path='/resetpassword' element={<Reset/>} />
           <Route path='/dashboard' element={
           <ProtectedRoutes><Dashboard/></ProtectedRoutes>
           } />
