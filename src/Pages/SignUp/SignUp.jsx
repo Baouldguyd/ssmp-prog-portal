@@ -33,6 +33,8 @@ const SignUp = () => {
   };
   const { setEventInputs } = useGatherInputFields(setFormData);
 
+  
+
   return (
     <div className="grid-cols-2  h-[100svh]">
       <div className="w-[10rem] mx-[2rem]">

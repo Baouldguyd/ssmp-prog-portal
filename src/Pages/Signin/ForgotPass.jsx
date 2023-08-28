@@ -18,7 +18,7 @@ const Signin = () => {
 useLayoutEffect(()=>{
   document.title = "Login | Sail Admin Portal"
   if(sessionStorage.getItem("user")){
-    window.location.href= "/dashboard"
+    window.location.href= "/resetpassword"
   }
 })
 

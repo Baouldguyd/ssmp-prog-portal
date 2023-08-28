@@ -1,186 +1,164 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import SailLogo from "../../assets/SailInnovationLogo.png";
-import { Button, Col, Form, Input, Row } from "antd";
-import { useNavigate,Link } from "react-router-dom";
-import toast from "react-hot-toast";
-import axios from 'axios'
+import React from "react";
+import { useState, useRef } from "react";
+import logo from "../../assets/SailInnovationLogo.png";
+import PinInput from "react-pin-input";
+import Modal from "../../Components/Modal";
+import { Form } from "antd";
 
+const Reset = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-const Signin = () => {
-
-
-  const [loading, setLoading] = useState(false);
-  const [loginData, setLoginData] = useState();
-  const [message, setMessage] = useState("");
-
-  const navigate = useNavigate();
-
-useLayoutEffect(()=>{
-  document.title = "Login | Sail Admin Portal"
-  if(sessionStorage.getItem("user")){
-    window.location.href= "/dashboard"
-  }
-})
-
-  const [signInInfo, setsignInInfo] = useState({
-    newPassword: '',
-    comfirmPassword: '',
-  });
- 
-  //This state holds the error messages and allows the display of it when there issues with the form inputs
-  const [errors, setErrors] = useState({
-    newPassword: '',
-    comfirmPassword: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setsignInInfo((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const openModal = () => {
+    setModalIsOpen(true);
   };
 
-  const validateForm = () => {
-    let newErrors = {};
-    if (!signInInfo.newPassword) {
-      newErrors.newPassword = 'New Password is required';
-    }
-    if (!signInInfo.comfirmPassword) {
-      newErrors.comfirmPassword = 'Password comfirmation is required';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
+  const [otp, setOtp] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (event) => {
+
+    event.preventDefault();
+
+    const resetPasswordData = {
+      otp,
+      email,
+      password,
+    };
 
 
-  const loginHandler = async () => {
-    setLoading(true);
+    const url = "https://ssmp-api.onrender.com/api/v1/user/changePassword";
+
     try {
-      if (validateForm()) {
-        const { newPassword, comfirmPassword } = signInInfo;
-    console.log(newPassword , comfirmPassword);
-    const response = await axios.post(
-        process.env.REACT_APP_SSMP_BACKEND_API + "login", { newPassword, comfirmPassword }
-    )
-    console.log(response.data);
-    setMessage(response.data.responseMessage?.toUpperCase());
-    if (response.data.responseCode === "00") {
-      toast.success(response.data.responseMessage, {
-        duration: 4000,
-        position: "top-center",
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify( resetPasswordData ),
       });
-      sessionStorage.setItem("token", response.data.data.token);
-      sessionStorage.setItem("userRole", response.data.data.role);
-        setMessage('Login successful');
-        navigate('/dashboard');
+
+      if (response.ok) {
+        // Handle successful password reset
+        openModal();
+        console.log('Password reset successful.');
+
       } else {
-        // User's credentials are not valid
-        setMessage('Invalid credentials');
-        toast.error(response.data.responseMessage, {
-          duration: 4000,
-          position: "top-center",
-        });
-        
-      setLoading(false);
-      console.log(response);
-    }}} catch (error) {
-      setLoading(false);
-      console.log(error);
+        // Handle error
+        console.error("Password reset failed");
+      }
+    } catch (error) {
+      console.error("An error occured ", error);
     }
   };
-  
+
+  const numberOfPinInputs = 4; // Change this to the desired number of inputs
+
+  const pinRefs = Array.from({ length: numberOfPinInputs }, () => React.createRef());
+
+  const handlePinChange = (index) => (value) => {
+    if (value.length === 1 && index < pinRefs.length - 1) {
+      pinRefs[index + 1].current.focus();
+    } else if (value.length === 0 && index > 0) {
+      pinRefs[index - 1].current.focus();
+    }
+    // Handle your state management here if needed
+  };
   
 
   return (
-    <div className=" grid-cols-2  h-[100svh]">
-      <div className="w-[10rem] mx-[2rem]">
-        <img src={SailLogo} alt="SailLogo" />
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 h-screen bg-white">
+      <div className=" ">
+        <div className=" absolute top-0 left-0 p-4">
+          <img className="mx-auto h-16 w-auto" src={logo} alt="logo" />
+        </div>
+      </div>
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-black">
+          Reset your password
+        </h2>
       </div>
 
-      <div className="  justify-center m-auto my-[4rem] items-center bg-white w-[25rem]">
-        <div className="text-center  text-2xl font-bold mt-[45%]">
-          <h1>Reset Password</h1>
-        </div>
-        <div className="block justify-center items-center flex-col  h-80 mt-10 ">
-          <div className="ml-[1.4rem]">
-            <Form
-              layout="vertical"
-              onFinish={loginHandler}
-              fields={[
-                {
-                  name: "newPassword",
-                  value: loginData?.newPassword,
-                },
-                {
-                  name: "comfirmPassword",
-                  value: loginData?.comfirmPassword,
-                },
-              ]}
-            >
-              <Row>
-                <Col span={24}>
-                  <Form.Item
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your EmailAddress!",
-                      },
-                    ]}
-                  >
-                    <Input.Password
-                      onChange={handleInputChange}
-                      name="newPassword"
-                      type="password"
-                      id="newPassword"
-                      placeholder="New Password"
-                      className="py-3"
-                      
-                    />
-                  </Form.Item>
-                </Col>
-
-                <Col span={24}>
-                  <Form.Item
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <Input.Password
-                      onChange={handleInputChange}
-                      name="comfirmPassword"
-                      placeholder="Comfirm Password"
-                      type="password"
-                      id="comfirmPassword"
-                      className="py-3"
-                    />
-                  </Form.Item>
-                </Col>
-                
-                <Col span={24}>
-                  <Button
-                    loading={loading}
-                    type="primary"
-                    htmlType="submit"
-                    className="bg-[#134c98] flex items-center justify-center py-5"
-                    block
-                  >
-                    Sign In
-                  </Button>
-                </Col>
-                
-              </Row>
-              
-            </Form>
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <Form className="space-y-6" method="POST" onSubmit={handleSubmit}>
+          <div>
+            <div className=" mb-4">
+              <h2 className="text-sm font-medium mb-3">Enter Your 4 digit OTP</h2>
+              <div className=" flex gap-6 justify-center">
+                {pinRefs.map((ref, index) => (
+                  <PinInput
+                    key={index}
+                    length={1}
+                    initialValue=""
+                    secret
+                    ref={ref}
+                    onChange={handlePinChange(index)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-black"
+              >
+                E-mail
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+              />
+            </div>
           </div>
-        </div>
+
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-black"
+              >
+                New Password
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              // onClick={openModal}
+              className="flex w-full justify-center rounded-md  bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Reset Password
+            </button>
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
+          </div>
+        </Form>
       </div>
     </div>
   );
 };
 
-export default Signin;
+export default Reset;
