@@ -4,6 +4,7 @@ import logo from "../../assets/SailInnovationLogo.png";
 import PinInput from "react-pin-input";
 import Modal from "../../Components/Modal";
 import { Form } from "antd";
+import ModalContent from "./ResetModal";
 
 const Reset = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

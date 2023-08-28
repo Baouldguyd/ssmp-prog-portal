@@ -68,8 +68,8 @@ useLayoutEffect(()=>{
     console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());
     if (response.data.responseCode === "00")
-     {const userRole = response.data.data.role;
-      if (userRole === "admin") {
+     {const userRole = response.data.data.userRole;
+      if (response.data.data.userRole === "admin") {
       toast.success(response.data.responseMessage, {
         duration: 4000,
         position: "top-center",

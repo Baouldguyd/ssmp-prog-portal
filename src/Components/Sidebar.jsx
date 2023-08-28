@@ -31,6 +31,7 @@ const Sidebar = () => {
     
     { title: "Admin Profile", spacing: true, to : '/admin' },
     { title: "Setting", to: '/settings' },
+    { title: "LogOut", to: '/logOut' },
   ];
   return (
     <div className=" h-screen flex bg-slate-50">
