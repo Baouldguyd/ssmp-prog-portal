@@ -14,6 +14,7 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", to : '/dashboard' },
     { title: "Instructors", to: '/instructors' },
+    { title: "Tasks", to: '/tasks' },
     { title: "Pending Applicants", spacing: true, to: '/pending' },
    
 

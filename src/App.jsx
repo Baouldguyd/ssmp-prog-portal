@@ -15,6 +15,7 @@ import Profile from './Pages/Profile/Profile';
 import SignUp from './Pages/SignUp/SignUp';
 import Forgot from './Pages/Signin/ForgotPass'
 import Reset from './Pages/Signin/ResetPassword'
+import Tasks from './Pages/Tasks/Tasks';
 
 const ProtectedRoutes = ({children}) =>{
   if(sessionStorage.getItem("userRole")){
@@ -35,6 +36,9 @@ function App() {
           <Route path='/resetpassword' element={<Reset/>} />
           <Route path='/dashboard' element={
           <ProtectedRoutes><Dashboard/></ProtectedRoutes>
+          } />
+          <Route path='/tasks' element={
+          <ProtectedRoutes><Tasks/></ProtectedRoutes>
           } />
           <Route path='/instructors' element={
            <ProtectedRoutes><Instructors/></ProtectedRoutes>} />

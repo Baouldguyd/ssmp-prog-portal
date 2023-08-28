@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import SailLogo from "../../assets/SailInnovationLogo.png";
+import Modal from "../../Components/Modal";
 import { Button, Col, Form, Input, Row } from "antd";
 import { useNavigate,Link } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -12,6 +13,14 @@ const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState();
   const [message, setMessage] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   const navigate = useNavigate();
 
@@ -139,6 +148,7 @@ useLayoutEffect(()=>{
                 
                 
                 <Col span={24}>
+                    <Link to={"/resetpassword"}>
                   <Button
                     loading={loading}
                     type="primary"
@@ -148,6 +158,8 @@ useLayoutEffect(()=>{
                   >
                     Forgot Password
                   </Button>
+                  <Modal isOpen={modalIsOpen} onRequestClose={closeModal} />
+                  </Link>
                 </Col>
                 
               </Row>
