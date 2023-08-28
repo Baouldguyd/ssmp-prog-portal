@@ -14,7 +14,7 @@ const Homepage = () => {
     <div>
       
       
-        <div className=" mt-10 relative flex flex-row w-screen p-  ">
+        <div className=" flex flex-row w-screen p-  ">
           <div className="ml-7">
              <h3 className="font-semibold text-base">Hi, Geezy</h3>
              <h1 className="text-3xl font-bold">Welcome to SAIL!</h1>
