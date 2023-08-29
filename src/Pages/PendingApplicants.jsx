@@ -7,7 +7,7 @@ const PendingApplicants = () => {
     <div className=' flex'>
         <Sidebar/>
 
-        <div className=' mt-[2rem] ml-4'>
+        <div className=' p-20 mt-[2rem]'>
             <h1  className='font-semibold text-2xl'>Pending Applicants</h1>
 
             <div className=' mt-[2rem]'>
