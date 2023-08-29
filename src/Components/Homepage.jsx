@@ -7,72 +7,83 @@ import { MdGraphicEq } from "react-icons/md";
 import { BiSearch } from "react-icons/bi";
 import { MdOutlineLibraryBooks } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import "../App.css"
 
 const Homepage = () => {
   return (
-    
-    <div>
-      
-      
-        <div className=" mt-10 relative flex flex-row w-screen p-  ">
-          <div className="ml-7">
-             <h3 className="font-semibold text-base">Hi, Geezy</h3>
-             <h1 className="text-3xl font-bold">Welcome to SAIL!</h1>
-          </div>
-          <div className="absolute top-36">
-            <div>
-              <div className="">
-                <div className=" flex flex-wrap">
-                  <div className=" ">
-                  <Link to='/pending'>
-                    <div className=" flex-col items-center hover:scale-110 duration-200 content-center cursor-pointer bg-white shadow-lg p-4 m-8 rounded-lg  h-32">
-                      <span className="">
-                        <FiUsers className="w-10 h-10 mt-7 bg-slate-100  text-blue-500 rounded-full p-2" />
-                      </span>
-                      <h1 className="font-extrabold text-xl text-slate-400 flex items-center ml-14 mt-[-4rem] ">
-                        Pending Applicants
-                      </h1>
-                      <p className=" text-black text-2xl font-extrabold  ml-14 ">
-                        13
-                      </p>
-                    </div>
-                    </Link>
-
-                    <Link to='/students'>
-                    <div className=" hover:scale-110 duration-200 flex cursor-pointer w-80 bg-white shadow-lg p-4 m-8 rounded-lg">
-                    <div className=" bg-slate-100 w-10 h-10 p-3 rounded-full text-3xl mt-7 ">
-                        <FiUsers className=" text-blue-500 text-2xl mt-[-4px] ml-[-4px] " />
-                      </div>
-                      <h1 className=" text-2xl text-slate-400 font-extrabold flex items-center gap-2 mt-[-4rem] ml-3">
-                        Enrolled Students
-                      </h1>
-
-                      <p className="  mt-9 text-2xl ml-[-4rem] font-extrabold">
-                        230
-                      </p>
-                    </div>
-                    </Link>
-
-                    <Link to='/students'>
-                    <div className=" hover:scale-110 duration-200 cursor-pointer w-80 bg-white shadow-lg p-4 m-8 rounded-lg">
-                      <div className="bg-slate-100 w-11 h-11 p-2 rounded-full text-3xl mt-7">
-                        <FiUsers className="  p-1 text-blue-500 " />
-                      </div>
-                      <h1 className=" font-extrabold text-slate-400 ml-16 flex items-center gap-5 mt-[-65px] text-2xl">
-                        Active Students
-                      </h1>
-                      <p className="ml-16 text-2xl font-extrabold">230</p>
-                    </div>
-                    </Link>
-                    
-                  </div>
+    <div className=" mt-10 relative flex flex-row w-screen h-screen  ">
+      <div className="absolute top-36">
+        <div className=" mt-16">
+          <div className=" flex flex-wrap">
+            <div className=" ml-14 flex gap-5 mt-[-10rem] ">
+              <Link to="/pending">
+                <div className=" border-t-8 border-blue-500 w-[22rem] h-[10rem] flex-col items-center hover:scale-110 duration-200 content-center cursor-pointer bg-slate-50 shadow-lg p-4 m-8 rounded-lg">
+                  <span className="">
+                    <FiUsers className="w-12 border-4 border-blue-500 h-12 mt-8 ml-[-10px] bg-slate-100  text-blue-500 rounded-full p-2" />
+                  </span>
+                  <h1 className="font-extrabold text-2xl text-slate-500 flex items-center ml-10 mt-[-5.5rem] ">
+                    Enrolled Students
+                  </h1>
+                  <p className=" text-black text-4xl font-extrabold  ml-14 mt-4 ">
+                    1,300
+                  </p>
                 </div>
-              </div>
+              </Link>
+              <Link to="/pending">
+                <div className=" border-t-8 border-blue-500 w-[22rem] h-[10rem] flex-col items-center hover:scale-110 duration-200 content-center cursor-pointer bg-slate-50 shadow-lg p-4 m-8 rounded-lg">
+                  <span className="">
+                    <FiUsers className="w-12 border-4 border-blue-500 h-12 mt-8 ml-[-10px] bg-slate-100  text-blue-500 rounded-full p-2" />
+                  </span>
+                  <h1 className="font-extrabold text-2xl text-slate-500 flex items-center ml-10 mt-[-5.5rem] ">
+                    Approved Applicants
+                  </h1>
+                  <p className=" text-black text-4xl font-extrabold  ml-14 mt-4 ">
+                    1,300
+                  </p>
+                </div>
+              </Link>
+              <Link to="/pending">
+                <div className=" border-t-8 border-blue-500 w-[22rem] h-[10rem] flex-col items-center hover:scale-110 duration-200 content-center cursor-pointer bg-slate-50 shadow-lg p-4 m-8 rounded-lg">
+                  <span className="">
+                    <FiUsers className="w-12 border-4 border-blue-500 h-12 mt-8 ml-[-10px] bg-slate-100  text-blue-500 rounded-full p-2" />
+                  </span>
+                  <h1 className="font-extrabold text-2xl text-slate-500 flex items-center ml-10 mt-[-5.5rem] ">
+                    Pending Applicants
+                  </h1>
+                  <p className=" text-black text-4xl font-extrabold  ml-14 mt-4 ">
+                    1,300
+                  </p>
+                </div>
+              </Link>
+              <Link to="/pending">
+                <div className=" border-t-8 border-blue-500 w-[22rem] h-[10rem] flex-col items-center hover:scale-110 duration-200 content-center cursor-pointer bg-slate-50 shadow-lg p-4 m-8 rounded-lg">
+                  <span className="">
+                    <FiUsers className="w-12 border-4 border-blue-500 h-12 mt-8 ml-[-10px] bg-slate-100  text-blue-500 rounded-full p-2" />
+                  </span>
+                  <h1 className="font-extrabold text-2xl text-slate-500 flex items-center ml-10 mt-[-5.5rem] ">
+                    Rejected Applicants
+                  </h1>
+                  <p className=" text-black text-4xl font-extrabold  ml-14 mt-4 ">
+                    1,300
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
+          {/* big cards */}
+          <div className="flex">
+            <div className=" ml-20 bg-slate-50 shadow-lg h-[30rem] w-[55rem] border-l-8 border-blue-500 rounded-lg mt-20 hover:scale-110 duration-200 ">
+              <h1 className=" text-3xl p-5 font-extrabold ">Tasks</h1>
+            </div>
+            <div className=" ml-20 bg-slate-50 shadow-lg h-[30rem] w-[45rem] border-l-8 border-blue-500 rounded-lg mt-20 hover:scale-110 duration-200 ">
+              <h1 className=" text-3xl p-5 font-extrabold ">Schedules</h1>
+            </div>
+          </div>
+          <hr className=" mt-14" />
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Homepage;

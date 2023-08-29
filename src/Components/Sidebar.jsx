@@ -27,8 +27,8 @@ const Sidebar = () => {
       
     },
 
-    { title: 'Schedules', onClick: () => '/schedules'},
-    { title: "Upload Events", onClick: () => '/upload' },
+    { title: 'Task', to:'/schedules'},
+    { title: "Upload Events", to : '/upload' },
     
     { title: "Admin Profile", spacing: true, onClick: () => '/admin' },
     { title: "Setting", onClick: () => '/settings'},
@@ -43,13 +43,13 @@ const Sidebar = () => {
         } duration-300   `}
       >
         <BsArrowLeftShort
-          className={` bg-white text-slate-400 text-3xl rounded-full absolute -right-4 top-9 border border-blue-100 cursor-pointer ${
+          className={` bg-white text-slate-400 text-3xl rounded-full absolute -right-4 top-3 border border-blue-100 cursor-pointer ${
             !open && "rotate-180"
           }`}
           onClick={() => setOpen(!open)}
         />
 
-        <div className=" ml-2 p-1 inline-flex ">
+        <div className="p-1 inline-flex ">
           <AiOutlineSlack
             className={` bg-blue-500 text-white text-4xl rounded cursor-pointer block float-left duration-500 ${
               open && "rotate-[360deg]"
@@ -68,7 +68,7 @@ const Sidebar = () => {
 
 
 
-        <ul className="pt-20 ml-2">
+        <ul className="pt-20">
           {Menus.map((menu, index) => (
             <div key={index}>
               <li
