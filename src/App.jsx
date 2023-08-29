@@ -17,6 +17,9 @@ import Forgot from './Pages/Signin/ForgotPass'
 import Reset from './Pages/Signin/ResetPassword'
 import Tasks from './Pages/Tasks/Tasks';
 import LogOut from './Pages/LogOut'
+import Create from './Pages/Tasks/CreateView';
+import TaskQuestions from './Pages/Tasks/TaskQuestions';
+
 
 const ProtectedRoutes = ({children}) =>{
   if(sessionStorage.getItem("role")){
@@ -41,6 +44,9 @@ function App() {
           } />
           <Route path='/tasks' element={
           <ProtectedRoutes><Tasks/></ProtectedRoutes>
+          } />
+          <Route path='/details' element={
+          <ProtectedRoutes><TaskQuestions/></ProtectedRoutes>
           } />
           <Route path='/instructors' element={
            <ProtectedRoutes><Instructors/></ProtectedRoutes>} />

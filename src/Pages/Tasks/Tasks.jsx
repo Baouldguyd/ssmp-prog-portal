@@ -1,9 +1,32 @@
 import Sidebar from '../../Components/Sidebar'
 import { AudioOutlined, PlusOutlined  } from '@ant-design/icons';
-import { Button,Input,Select } from 'antd'
+import { Button,Input,Select,Steps } from 'antd';
+import Html from './HtmlQuestions';
+import Css from './CssQuestions';
+import JavaScript from './JavascriptQuestions';
+import ReactT from './ReactQuestions';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 
-const {Search} = Input
+
+function Tasks() {
+  const {Search} = Input
+  const [currentStep, setCurrentStep] = useState(0);
+  const prev = () => {
+    setCurrentStep(currentStep - 1);
+  };
+  const next = () => {
+    setCurrentStep(currentStep + 1);
+  };
+  const handleNextClick =  () => {
+    try {
+      
+      setCurrentStep(currentStep + 1);
+    } catch (errorInfo) {
+      console.log(errorInfo);
+    }
+  };
 
 const suffix = (
   <AudioOutlined
@@ -13,35 +36,69 @@ const suffix = (
     }}
   />
 );
+  const steps = [
+    
+    {
+      title: "Html",
+      content: <Html/>,
+    },
+    {
+      title: "Css",
+      content: <Css />,
+    },
+    {
+      title: "JavaScript",
+      content: <JavaScript />,
+    },
+    {
+      title: "React",
+      content: <ReactT/>,
+    },
+    // ... Add more steps as needed
+  ];
 
-function Tasks() {
   
 const onSearch = (value) => console.log(value);
   return (
     <div className='flex   '>
         <Sidebar/>
         <div className=' md:w-full'>
-        <div className=' flex flex-col mt-8 ml-4'>
+        <header className=' flex flex-col mt-8 ml-4'>
         <h1 className=' font-semibold text-2xl'>Tasks</h1>
-        </div>
-        <div className=' flex justify-between mt-8  ml-[4rem]'>
+        </header>
+        <section className=' flex justify-between mt-8  ml-[4rem]'>
+          <Link to={"/create"}>
         <Button className=' flex bg-blue-600 hover:!bg-blue-400 hover:!text-black h-[2.5rem]  text-white'> <span className=' mt-[.2rem]'>Create Tasks</span> <div className=' mb-[.5rem]'><PlusOutlined /></div> </Button>
-        
+        </Link>
 
+       
+        <div className=' h-auto flex gap-4 align-left  md:w-[13.4rem] mr-[.3rem] float-right '>
+          
         <Select>
           <Select.Option></Select.Option>
         </Select>
-        <div className=' align-left  md:w-[13.4rem] mr-[3.5rem] float-right '>
+
           <Search
-        className=' align-left bg-blue-600  float-right '
+        className=' align-left  '
         placeholder="Search Tasks"
         enterButton="Search"
-        size="large"
+        size="medium"
         suffix={suffix}
         onSearch={onSearch}
         /></div>
-        </div>
-
+        </section>
+        <section>
+        <Steps
+              current={currentStep}
+              responsive={false}
+              items={steps.map(step => ({ title: step.title }))}
+              className="mt-5 ml-5 mb-5 md:mb-14  w-[76%]"
+              onChange={stepIndex => setCurrentStep(stepIndex)}
+            />
+            </section>
+           <section className='ml-5'>
+            {steps[currentStep].content}
+            </section>
         </div>
     </div>
   )

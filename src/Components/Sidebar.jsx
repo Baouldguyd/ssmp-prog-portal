@@ -4,35 +4,37 @@ import { useState } from "react";
 import { BsArrowLeftShort, BsChevronDown, BsSearch } from "react-icons/bs";
 import { AiOutlineSlack } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
+import LogOutModal from './LogOutModal';
 
 const Sidebar = () => {
     const [open, setOpen] = useState(true);
   const [submenuOpen, setsubmenuOpen] = useState(false);
-
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
  
 
   const Menus = [
-    { title: "Dashboard", to : '/dashboard' },
-    { title: "Instructors", to: '/instructors' },
-    { title: "Tasks", to: '/tasks' },
-    { title: "Pending Applicants", spacing: true, to: '/pending' },
+    { title: "Dashboard", onClick: () => '/dashboard' },
+    { title: "Instructors",  onClick: () => '/instructors' },
+    { title: "Tasks",onClick: () => '/tasks' },
+    { title: "Pending Applicants", spacing: true, onClick: () => '/pending'},
    
 
     {
       
-       title: 'Enrolled Students', to : '/students',
+       title: 'Enrolled Students', onClick: () => '/students',
        
   
       
     },
 
-    { title: 'Schedules', to:'/schedules'},
-    { title: "Upload Events", to : '/upload' },
+    { title: 'Schedules', onClick: () => '/schedules'},
+    { title: "Upload Events", onClick: () => '/upload' },
     
-    { title: "Admin Profile", spacing: true, to : '/admin' },
-    { title: "Setting", to: '/settings' },
-    { title: "LogOut", to: '/logOut' },
+    { title: "Admin Profile", spacing: true, onClick: () => '/admin' },
+    { title: "Setting", onClick: () => '/settings'},
+    { title: "LogOut" },
   ];
+  
   return (
     <div className=" w-70 h-screen flex bg-slate-50">
         <div
@@ -80,6 +82,7 @@ const Sidebar = () => {
                 </span>
                 {menu.to ? (
                 <Link key={index} to={menu.to}>
+                  
                   <span
                     className={`text-base font-medium flex-1 duration-200 ${
                       !open && "hidden"
@@ -92,11 +95,21 @@ const Sidebar = () => {
                 <span
                 className={`text-base font-medium flex-1 duration-200 ${
                   !open && "hidden"
-                }`}
+                }`} onClick={menu.onClick}
               >
-                {menu.title}
+               {menu.title  && (
+                  <button
+                    onClick={() => setLogoutModalOpen(true)}
+                    className="  text-base font-medium flex-1 duration-200"
+                  >
+                    {menu.title}
+                  </button>
+                )}
+
               </span>
             )}
+            
+            
                 {menu.submenu && (
                   <BsChevronDown
                     className={`${submenuOpen && "rotate-180"} text-white font-extrabold`}
@@ -107,7 +120,7 @@ const Sidebar = () => {
 
               {menu.submenu && submenuOpen && open && (
                 <ul>
-                {menu.submenuItems.map((submenuItem, index) => (
+                {/* {menu.submenuItems.map((submenuItem, index) => (
                   <li
                     key={index}
                     className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-8 hover:bg-blue-500 rounded-md"
@@ -118,13 +131,24 @@ const Sidebar = () => {
                       submenuItem.title
                     )}
                   </li>
-                ))}
+                ))} */}
               </ul>
               )}
             </div>
           ))}
         </ul>
       </div>
+      <LogOutModal
+  isOpen={logoutModalOpen}
+  onRequestClose={() => setLogoutModalOpen(false)} // Close modal when requested
+  title="Confirm Logout"
+  content="Are you sure you want to log out?"
+  confirmText="Log Out"
+  onConfirm={() => {
+    
+    setLogoutModalOpen(false); // Close the modal
+  }}
+/>
 
     </div>
   )
