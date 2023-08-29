@@ -34,10 +34,10 @@ const Sidebar = () => {
     { title: "LogOut", to: '/logOut' },
   ];
   return (
-    <div className=" h-screen flex bg-slate-50">
+    <div className=" w-70 h-screen flex bg-slate-50">
         <div
         className={`bg-transparent mt-5 border-1 shadow-lg side-bar h-[80rem] p-5 pt-[rem] ${
-          open ? "w-72" : "w-24"
+          open ? "w-70" : "w-24"
         } duration-300   `}
       >
         <BsArrowLeftShort

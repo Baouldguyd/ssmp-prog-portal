@@ -110,7 +110,7 @@ useLayoutEffect(()=>{
       </div>
 
       <div className="  justify-center m-auto my-[4rem] items-center bg-white w-[25rem]">
-        <div className="text-center  text-2xl font-bold">
+        <div className="text-center mt-[10rem]  text-2xl font-bold">
           <h1>Sign In</h1>
         </div>
         <div className="block justify-center items-center flex-col  h-80 mt-10 ">
