@@ -18,7 +18,7 @@ const Signin = () => {
   const navigate = useNavigate();
 
 useLayoutEffect(()=>{
-  document.title = "Login | Sail Admin Portal"
+  document.title = "Welcome | Sail Admin Portal"
   if(sessionStorage.getItem("user")){
     window.location.href= "/dashboard"
   }
