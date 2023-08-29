@@ -13,16 +13,10 @@ const Sidebar = () => {
  
 
   const Menus = [
-
-    { title: "Dashboard", to : '/dashboard' },
-    { title: "Instructors", to: '/instructors' },
-    { title: "Pending Applicants", spacing: true, to: '/pending' },
-
     { title: "Dashboard", onClick: () => '/dashboard' },
     { title: "Instructors",  onClick: () => '/instructors' },
     { title: "Tasks",onClick: () => '/tasks' },
     { title: "Pending Applicants", spacing: true, onClick: () => '/pending'},
-
    
 
     {
@@ -49,10 +43,10 @@ const Sidebar = () => {
   ];
   
   return (
-    <div className=" h-screen flex bg-slate-50">
+    <div className=" w-70 h-screen flex bg-slate-50">
         <div
         className={`bg-transparent mt-5 border-1 shadow-lg side-bar h-[80rem] p-5 pt-[rem] ${
-          open ? "w-72" : "w-24"
+          open ? "w-70" : "w-24"
         } duration-300   `}
       >
         <BsArrowLeftShort
@@ -83,7 +77,7 @@ const Sidebar = () => {
 
         <ul className="pt-20">
           {Menus.map((menu, index) => (
-            <Link>
+            <div key={index}>
               <li
                 key={index}
                 className={`text-black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-blue-500 hover:text-white rounded-md duration-300 ${
@@ -143,7 +137,7 @@ const Sidebar = () => {
                     className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-8 hover:bg-blue-500 rounded-md"
                   >
                     {submenuItem.to ? (
-                      <Link to={submenuItem.to}>{submenuItem.title}</Link>
+                      <Link key={index} to={submenuItem.to}>{submenuItem.title}</Link>
                     ) : (
                       submenuItem.title
                     )}
@@ -151,7 +145,7 @@ const Sidebar = () => {
                 ))} */}
               </ul>
               )}
-            </Link>
+            </div>
           ))}
         </ul>
       </div>

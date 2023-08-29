@@ -10,8 +10,6 @@ import Setings from './Pages/Setings';
 import Signin from './Pages/Signin/Sigin';
 import Students from './Pages/Students';
 import Upload from './Pages/Upload';
-<<<<<<< Updated upstream
-=======
 import { Navigate } from 'react-router-dom';
 import Profile from './Pages/Profile/Profile';
 import SignUp from './Pages/SignUp/SignUp';
@@ -30,25 +28,13 @@ const ProtectedRoutes = ({children}) =>{
     return <Navigate to={"/"} replace={true}/>
   }
 }
->>>>>>> Stashed changes
 
 function App() {
   return (
 
-      <Router>
+      
         <Routes>
           <Route path='/' element={<Signin/>} />
-<<<<<<< Updated upstream
-          <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/instructors' element={<Instructors/>} />
-          <Route path='/settings' element={<Setings/>} />
-          <Route path='/students' element={<Students/> } />
-          <Route path='/upload' element={<Upload/>} />
-          <Route path='/profile' element={<Admin/>} />
-          <Route path='/schedules' element={<Schedules/>} />
-          <Route path='/admin' element={<Admin/>} />
-          <Route path='/pending' element={<PendingApplicants/>} />
-=======
           <Route path='/signup' element={<SignUp/>} />
           <Route path='/forgotpass' element={<Forgot/>} />
           <Route path='/logOut' element={<LogOut/>} />
@@ -78,11 +64,10 @@ function App() {
           <ProtectedRoutes><Admin/></ProtectedRoutes>} />
           <Route path='/pending' element={
           <ProtectedRoutes><PendingApplicants/></ProtectedRoutes>} />
->>>>>>> Stashed changes
 
         </Routes>
         
-      </Router>
+    
 
     
   );
