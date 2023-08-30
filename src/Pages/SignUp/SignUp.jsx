@@ -2,7 +2,7 @@ import { useState } from "react";
 import SailLogo from "../../assets/SailInnovationLogo.png";
 import { Link } from "react-router-dom";
 import { Form, Row, Col, Button, Input } from "antd";
-import useGatherInputFields from "../../Hooks/useGatheInputFields";
+import useGatherInputFields from "../../hooks/useGatheInputFields";
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState();
@@ -32,8 +32,6 @@ const SignUp = () => {
     }
   };
   const { setEventInputs } = useGatherInputFields(setFormData);
-
-  
 
   return (
     <div className="grid-cols-2  h-[100svh]">
