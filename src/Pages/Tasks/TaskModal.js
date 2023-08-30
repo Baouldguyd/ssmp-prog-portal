@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TaskModal = ({ isOpen, onRequestClose }) => {
+const TaskModal = ({ isOpen, onRequestClose, onConfirm }) => {
   if (!isOpen) {
     return null;
   }
@@ -24,13 +24,14 @@ const TaskModal = ({ isOpen, onRequestClose }) => {
                   
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-6 py-1.5 text-sm font-semibold text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600  ring-gray-300 hover:bg-red-700 sm:mt-0 sm:w-auto"  
+                    className="mt-3 mr-2 inline-flex w-full justify-center rounded-md bg-red-500 px-6 py-1.5 text-sm font-semibold text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600  ring-gray-300 hover:bg-red-700 sm:mt-0 sm:w-auto"  
                   >
                     No
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-blue-600 px-6 py-1.5 text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 shadow-sm ring-gray-300 hover:bg-blue-700 sm:mt-0 sm:w-auto"  
+                    onClick={onConfirm} // Trigger the onConfirm callback
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-blue-500 px-6 py-1.5 text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 shadow-sm ring-gray-300 hover:bg-blue-700 sm:mt-0 sm:w-auto"  
                   >
                     Yes
                   </button>

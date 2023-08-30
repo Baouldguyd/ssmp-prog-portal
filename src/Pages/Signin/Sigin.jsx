@@ -100,6 +100,15 @@ useLayoutEffect(()=>{
       console.log(error);
     }
   };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    // You can also add any other relevant session storage items to clear
+
+    // Redirect to the sign-in page after logout
+    navigate('/signin');
+  };
   
   
 
