@@ -7,7 +7,7 @@ const ReactQuestions = () => {
     const tasks = [
         {
           course: "React",
-          taskTitle: "Introduction to HTML",
+          taskTitle: "Introduction to React",
           taskPoints: 100,
           status: "Not Submitted",
           deadline: "2023-11-28",

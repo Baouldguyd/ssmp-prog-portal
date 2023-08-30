@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import { BASE_URL } from "../constants/baseUrl";
+
 
 const useGetUserInfo = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -9,7 +9,7 @@ const useGetUserInfo = () => {
   const getUserInfo = useCallback(async () => {
     setLoading(true);
     try {
-      const request = await fetch(`${BASE_URL}getUserInfo`, {
+      const request = await fetch(process.env.REACT_APP_SSMP_BACKEND_API +`getUserInfo`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
