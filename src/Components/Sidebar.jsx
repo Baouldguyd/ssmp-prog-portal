@@ -4,24 +4,22 @@ import { useState } from "react";
 import { BsArrowLeftShort, BsChevronDown, BsSearch } from "react-icons/bs";
 import { AiOutlineSlack } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
-import LogOutModal from './LogOutModal';
 
 const Sidebar = () => {
     const [open, setOpen] = useState(true);
   const [submenuOpen, setsubmenuOpen] = useState(false);
-  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+
  
 
   const Menus = [
-    { title: "Dashboard", to:'/dashboard'},
-    { title: "Instructors", to:'/instructors'},
-    { title: "Tasks", to:'/tasks'},
-    { title: "Pending Applicants", spacing: true, to:'/pending'},
+    { title: "Dashboard", to : '/dashboard' },
+    { title: "Instructors", to: '/instructors' },
+    { title: "Pending Applicants", spacing: true, to: '/pending' },
    
 
     {
       
-       title: 'Enrolled Students', to:'/students',
+       title: 'Enrolled Students', to : '/students',
        
   
       
@@ -30,16 +28,14 @@ const Sidebar = () => {
     { title: 'Task', to:'/schedules'},
     { title: "Upload Events", to : '/upload' },
     
-    { title: "Admin Profile", spacing: true, to:'/admin' },
-    { title: "Setting", to:'/settings'},
-    { title: "LogOut" },
+    { title: "Admin Profile", spacing: true, to : '/admin' },
+    { title: "Setting", to: '/settings' },
   ];
-  
   return (
-    <div className=" w-70 h-screen flex bg-slate-50">
+    <div className=" h-screen flex bg-slate-50">
         <div
         className={`bg-transparent mt-5 border-1 shadow-lg side-bar h-[80rem] p-5 pt-[rem] ${
-          open ? "w-70" : "w-24"
+          open ? "w-72" : "w-24"
         } duration-300   `}
       >
         <BsArrowLeftShort
@@ -70,7 +66,7 @@ const Sidebar = () => {
 
         <ul className="pt-20">
           {Menus.map((menu, index) => (
-            <div key={index}>
+            <Link>
               <li
                 key={index}
                 className={`text-black text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-blue-500 hover:text-white rounded-md duration-300 ${
@@ -81,8 +77,7 @@ const Sidebar = () => {
                   {menu.icon ? menu.icon : <RiDashboardFill />}
                 </span>
                 {menu.to ? (
-                <Link key={index} to={menu.to}>
-                  
+                <Link to={menu.to}>
                   <span
                     className={`text-base font-medium flex-1 duration-200 ${
                       !open && "hidden"
@@ -95,21 +90,11 @@ const Sidebar = () => {
                 <span
                 className={`text-base font-medium flex-1 duration-200 ${
                   !open && "hidden"
-                }`} onClick={() => {
-                  if (menu.title === "LogOut") {
-                    setLogoutModalOpen(true);
-                  } else {
-                    menu.onClick();
-                  }
-                }}
+                }`}
               >
                 {menu.title}
-                
-
               </span>
             )}
-            
-            
                 {menu.submenu && (
                   <BsChevronDown
                     className={`${submenuOpen && "rotate-180"} text-white font-extrabold`}
@@ -118,37 +103,26 @@ const Sidebar = () => {
                 )}
               </li>
 
-              {/* {menu.submenu && submenuOpen && open && (
+              {menu.submenu && submenuOpen && open && (
                 <ul>
-                { {menu.submenuItems.map((submenuItem, index) => (
+                {menu.submenuItems.map((submenuItem, index) => (
                   <li
                     key={index}
                     className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-8 hover:bg-blue-500 rounded-md"
                   >
                     {submenuItem.to ? (
-                      <Link key={index} to={submenuItem.to}>{submenuItem.title}</Link>
+                      <Link to={submenuItem.to}>{submenuItem.title}</Link>
                     ) : (
                       submenuItem.title
                     )}
                   </li>
-                ))} }
+                ))}
               </ul>
-              )} */}
-            </div>
+              )}
+            </Link>
           ))}
         </ul>
       </div>
-      <LogOutModal
-  isOpen={logoutModalOpen}
-  onRequestClose={() => setLogoutModalOpen(false)} // Close modal when requested
-  title="Confirm Logout"
-  content="Are you sure you want to log out?"
-  confirmText="Log Out"
-  onConfirm={() => {
-    
-    setLogoutModalOpen(false); // Close the modal
-  }}
-/>
 
     </div>
   )

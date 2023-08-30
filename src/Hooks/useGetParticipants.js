@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-
+import { BASE_URL } from "../constants/baseUrl";
 
 const useGetParticipantInfo = () => {
   const [participantsInfo, setUserInfo] = useState([]);
@@ -10,7 +10,7 @@ const useGetParticipantInfo = () => {
   const getUserInfo = useCallback(async () => {
     setLoading(true);
     try {
-      const request = await fetch( process.env.REACT_APP_SSMP_BACKEND_API +`getAllParticipants`, {
+      const request = await fetch(`${BASE_URL}getAllParticipants`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
