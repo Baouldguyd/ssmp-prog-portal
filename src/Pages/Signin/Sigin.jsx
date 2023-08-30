@@ -1,107 +1,76 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SailLogo from "../../assets/SailInnovationLogo.png";
 import { Button, Col, Form, Input, Row } from "antd";
 import useGatherInputFields from "../../Hooks/useGatheInputFields";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../constants/baseUrl";
 import toast from "react-hot-toast";
-import axios from 'axios'
-
 
 const Signin = () => {
-
-
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState();
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
-useLayoutEffect(()=>{
-  document.title = "Login | Sail Admin Portal"
-  if(sessionStorage.getItem("user")){
-    window.location.href= "/dashboard"
-  }
-})
-
-  const [signInInfo, setsignInInfo] = useState({
-    email: '',
-    password: '',
-  });
- 
-  //This state holds the error messages and allows the display of it when there issues with the form inputs
-  const [errors, setErrors] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setsignInInfo((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const validateForm = () => {
-    let newErrors = {};
-    if (!signInInfo.email) {
-      newErrors.email = 'Email is required';
+  useEffect(() => {
+    const isAdmin =
+      localStorage.getItem("token") &&
+      localStorage.getItem("userRole") === "ADMIN";
+    const isUser =
+      localStorage.getItem("token") &&
+      localStorage.getItem("userRole") === "USER";
+    if (isAdmin) {
+      navigate("/dashboard/details", {
+        replace: true,
+      });
     }
-    if (!signInInfo.password) {
-      newErrors.password = 'Password is required';
+    if (isUser) {
+      navigate("/user/dashboard/", {
+        replace: true,
+      });
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-
+  }, [navigate]);
 
   const loginHandler = async () => {
     setLoading(true);
     try {
-      if (validateForm()) {
-        const { email, password } = signInInfo;
-    console.log(email , password);
-    const response = await axios.post(
-        process.env.REACT_APP_SSMP_BACKEND_API + "login", { email, password }
-    )
-    console.log(response.data);
-    setMessage(response.data.responseMessage?.toUpperCase());
-    if (response.data.responseCode === "00")
-     {const userRole = response.data.data.role;
-      if (userRole === "ADMIN") {
-      toast.success(response.data.responseMessage, {
-        duration: 4000,
-        position: "top-center",
+      const logIn = await fetch(`${BASE_URL}signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
       });
-      
-      
-        
-          // Check if the user is an admin
-          sessionStorage.setItem("token", response.data.data.token);
-          sessionStorage.setItem("role", response.data.data.role);
-          setMessage('Login successful');
-          console.log('before nav');
-          navigate('/dashboard');
-          console.log('after nav');
-        } 
-      } else {
-        // User's credentials are not valid
-        setMessage('Invalid credentials');
-        toast.error(response.data.responseMessage, {
+      const response = await logIn.json();
+      // console.log(response);
+      if (logIn.ok) {
+        toast.success(response.responseMessage, {
           duration: 4000,
           position: "top-center",
         });
-        
+      }
+      if (response?.data?.role === "ADMIN") {
+        navigate("/dashboard", {
+          replace: true,
+        });
+      }
+      
+      
+      if (!logIn.ok) {
+        toast.error(response.responseMessage, {
+          duration: 4000,
+          position: "top-center",
+        });
+      }
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userRole", response.data.role);
       setLoading(false);
-      console.log(response);
-    }}} catch (error) {
+    } catch (error) {
       setLoading(false);
       console.log(error);
     }
   };
-  
-  
+  const { setEventInputs } = useGatherInputFields(setLoginData);
 
   return (
     <div className=" grid-cols-2  h-[100svh]">
@@ -110,7 +79,7 @@ useLayoutEffect(()=>{
       </div>
 
       <div className="  justify-center m-auto my-[4rem] items-center bg-white w-[25rem]">
-        <div className="text-center mt-[10rem]  text-2xl font-bold">
+        <div className="text-center  text-2xl font-bold">
           <h1>Sign In</h1>
         </div>
         <div className="block justify-center items-center flex-col  h-80 mt-10 ">
@@ -140,13 +109,14 @@ useLayoutEffect(()=>{
                     ]}
                   >
                     <Input
-                      onChange={handleInputChange}
+                      onChange={(e) => {
+                        setEventInputs(e.target.value, "email");
+                      }}
                       name="email"
                       type="email"
                       id="email"
                       placeholder="Email Address"
                       className="py-3"
-                      
                     />
                   </Form.Item>
                 </Col>
@@ -161,10 +131,12 @@ useLayoutEffect(()=>{
                     ]}
                   >
                     <Input.Password
-                      onChange={handleInputChange}
+                      onChange={(e) => {
+                        setEventInputs(e.target.value, "password");
+                      }}
                       name="password"
                       placeholder="Password"
-                      type="password"
+                      type="text"
                       id="password"
                       className="py-3"
                     />
@@ -184,21 +156,7 @@ useLayoutEffect(()=>{
                     Sign In
                   </Button>
                 </Col>
-                
               </Row>
-              <Col className=" m-auto" span={20}>
-                <Link to={"/signup"}>
-                  <Button
-                    
-                    type="primary"
-                    htmlType="button"
-                    className=" greenHover bg-green-600 hover:!bg-green-500 !important mt-10 flex items-center  text-[1.3rem] justify-center py-5 "
-                    block
-                  >
-                    Create new account
-                  </Button>
-                  </Link>
-                </Col>
             </Form>
           </div>
         </div>
