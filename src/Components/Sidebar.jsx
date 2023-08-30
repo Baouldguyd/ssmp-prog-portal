@@ -13,15 +13,15 @@ const Sidebar = () => {
  
 
   const Menus = [
-    { title: "Dashboard", onClick: () => '/dashboard' },
-    { title: "Instructors",  onClick: () => '/instructors' },
-    { title: "Tasks",onClick: () => '/tasks' },
-    { title: "Pending Applicants", spacing: true, onClick: () => '/pending'},
+    { title: "Dashboard", to:'/dashboard'},
+    { title: "Instructors", to:'/instructors'},
+    { title: "Tasks", to:'/tasks'},
+    { title: "Pending Applicants", spacing: true, to:'/pending'},
    
 
     {
       
-       title: 'Enrolled Students', onClick: () => '/students',
+       title: 'Enrolled Students', to:'/students',
        
   
       
@@ -30,8 +30,8 @@ const Sidebar = () => {
     { title: 'Task', to:'/schedules'},
     { title: "Upload Events", to : '/upload' },
     
-    { title: "Admin Profile", spacing: true, onClick: () => '/admin' },
-    { title: "Setting", onClick: () => '/settings'},
+    { title: "Admin Profile", spacing: true, to:'/admin' },
+    { title: "Setting", to:'/settings'},
     { title: "LogOut" },
   ];
   
@@ -95,16 +95,16 @@ const Sidebar = () => {
                 <span
                 className={`text-base font-medium flex-1 duration-200 ${
                   !open && "hidden"
-                }`} onClick={menu.onClick}
+                }`} onClick={() => {
+                  if (menu.title === "LogOut") {
+                    setLogoutModalOpen(true);
+                  } else {
+                    menu.onClick();
+                  }
+                }}
               >
-               {menu.title  && (
-                  <button
-                    onClick={() => setLogoutModalOpen(true)}
-                    className="  text-base font-medium flex-1 duration-200"
-                  >
-                    {menu.title}
-                  </button>
-                )}
+                {menu.title}
+                
 
               </span>
             )}
@@ -118,9 +118,9 @@ const Sidebar = () => {
                 )}
               </li>
 
-              {menu.submenu && submenuOpen && open && (
+              {/* {menu.submenu && submenuOpen && open && (
                 <ul>
-                {/* {menu.submenuItems.map((submenuItem, index) => (
+                { {menu.submenuItems.map((submenuItem, index) => (
                   <li
                     key={index}
                     className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-8 hover:bg-blue-500 rounded-md"
@@ -131,9 +131,9 @@ const Sidebar = () => {
                       submenuItem.title
                     )}
                   </li>
-                ))} */}
+                ))} }
               </ul>
-              )}
+              )} */}
             </div>
           ))}
         </ul>
