@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
-import ApplicantsListApp from './ApplicantsList'
+import Participants from '../Participants/Participants'
 
 const PendingApplicants = () => {
   return (
@@ -11,7 +11,7 @@ const PendingApplicants = () => {
             <h1  className='font-semibold text-2xl'>Pending Applicants</h1>
 
             <div className=' mt-[2rem]'>
-            <ApplicantsListApp/>
+            <Participants/>
             </div>
         
         </div>
