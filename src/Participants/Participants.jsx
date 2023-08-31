@@ -32,7 +32,7 @@ const Participants = () => {
       key: "programme",
     },
   ];
-
+console.log(participantsInfo);
   const data = participantsInfo?.map((participant, index) => {
     return {
       key: participant.id,
