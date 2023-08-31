@@ -10,7 +10,7 @@ const useGetParticipantInfo = () => {
   const getUserInfo = useCallback(async () => {
     setLoading(true);
     try {
-      const request = await fetch( process.env.REACT_APP_SSMP_BACKEND_API +`getAllParticipants`, {
+      const request = await fetch( process.env.REACT_APP_SSMP_BACKEND_API +`user/getAllParticipants`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
