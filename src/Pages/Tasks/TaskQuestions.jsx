@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import TaskModal from "./TaskModal";
+
 
 const TaskQuestions = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [answers, setAnswers] = useState({});
   const [editMode, setEditMode] = useState({});
   const [editableIndex, setEditableIndex] = useState(null);
+  const [taskQuestion, setTaskQuestions] = useState([]);
 
   const openModal = (index) => {
     setEditableIndex(index);
@@ -33,28 +36,47 @@ const TaskQuestions = () => {
     }
   };
 
+  useEffect(() => {
+    // Fetch task data from the backend API
+    async function fetchTaskQuestions() {
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await axios.get(process.env.REACT_APP_SSMP_BACKEND_API + "tasks/getAllTask",{
+          headers:{
+            Authorization: `Bearer ${token}`,
+            role: "ADMIN"
+          }
+          
+        });
+        const fetchedData = response.data.data.getAllTask; // Fetched task data
+      console.log("Fetched Task Data:", fetchedData); // Log the data
+      setTaskQuestions(fetchedData);
+       
+        console.log(response.data.data); // Update state with fetched task data
+      } catch (error) {
+        console.error("Error fetching task questions:", error);
+      }
+    }
+
+    fetchTaskQuestions();
+  }, []);
+
   const handleEditConfirmation = (index) => {
     setEditableIndex(index);
     setModalIsOpen(true);
   };
+  const initialContent = (
+    <p>
+      Write a paragraph explaining the importance of <strong>HTML</strong> in web development.
+      Use <em>italics</em> to emphasize key points and demonstrate <code>&lt;code&gt;</code> elements for code snippets.
+    </p>
+  );
+  const [paragraphContent, setParagraphContent] = useState(initialContent);
 
   const taskQuestions = [
     {
       taskTitle: "Introduction to HTML",
-      taskQuestion: (
-        <div>
-          <p>
-            Write a paragraph explaining the importance of <strong>HTML</strong>{" "}
-            in web development. Use <em>italics</em> to emphasize key points and
-            demonstrate <code>&lt;code&gt;</code> elements for code snippets.
-          </p>{" "}
-          <br />
-          <p>
-            How would you create an <u>underlined</u> text? Explain using HTML
-            tags.
-          </p>
-        </div>
-      ),
+      taskQuestion: paragraphContent,
       path: "/details",
     },
   ];
@@ -95,13 +117,20 @@ const TaskQuestions = () => {
               <label className="block text-base font-bold text-gray-700">
                 Enter Answers Below
               </label>
-              <textarea
-                name={`answer${index}`} // Use a unique name for each answer
-                value={answers[`answer${index}`] || ""}
-                onChange={handleInputChange}
-                className="block w-full mt-1 p-4 text-base font-semibold border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                rows="4"
-              />
+              {editMode[index] ? (
+                <textarea
+                  value={editableQuestions[index].taskQuestion.props.children}
+                  onChange={(e) => {
+                    const editedQuestion = e.target.value;
+                    handleQuestionEdit(index, editedQuestion);
+                  }}
+                  // Add necessary attributes and styling
+                />
+              ) : (
+                <div className="mt-2 text-gray-700">
+                  {initialContent.props.children[index]}
+                </div>
+              )}
             </div>
 
             <button
@@ -139,18 +168,3 @@ export default TaskQuestions;
 
 
 
-/* const taskQuestions = [
-  {
-    taskTitle: "Introduction to HTML",
-    taskQuestion: [
-      {
-        
-         question: `Write a paragraph explaining the importance of <strong>HTML</strong>{" "}
-          in web development. Use <em>italics</em> to emphasize key points and
-          demonstrate <code>&lt;code&gt;</code> elements for code snippets.`
-        
-      }
-    ],
-    path: "/details",
-  },
-]; */
