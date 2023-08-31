@@ -1,12 +1,11 @@
 import { useEffect, useCallback, useState } from "react";
-import { BASE_URL } from "../constants/baseUrl";
 
-const useGetParticipantInfo = () => {
+const useGetParticipants = () => {
   const [participantsInfo, setUserInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const token = sessionStorage.getItem("token");
   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N…jEyfQ.UqFgRsNuhAOA7j4D55bb4Iuj0sdVkEUpYeurdao9Nic'
-
+ 
   const getUserInfo = useCallback(async () => {
     setLoading(true);
     try {
@@ -33,4 +32,4 @@ const useGetParticipantInfo = () => {
   return { participantsInfo, loading };
 };
 
-export default useGetParticipantInfo;
+export default useGetParticipants;

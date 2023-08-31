@@ -14,7 +14,9 @@ const Popmodal = () => (
     style={{ width: "30px", backgroundColor: "black", color: "white" }}
   >
     <BsThreeDots />
+    
   </Popconfirm>
 );
 
 export default Popmodal;
+

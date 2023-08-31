@@ -19,7 +19,7 @@ const Sidebar = () => {
 
     {
       
-       title: 'Enrolled Students', to : '/students',
+       title: 'Approved Students', to : '/students',
        
   
       

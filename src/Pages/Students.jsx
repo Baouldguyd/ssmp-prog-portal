@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar';
-import Participants from '../Participants/Participants';
+
+import Approved from '../Participants/Approved';
 
 
 const Students = () => {
@@ -16,7 +17,7 @@ const Students = () => {
           </div>
 
           <div className=' mt-4 ml-4 block m-a'>
-          <Participants/>
+          <Approved/>
           </div>
         
         </div>
