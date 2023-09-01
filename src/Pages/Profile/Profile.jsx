@@ -1,11 +1,36 @@
 import image from "../Profile/profile-image.avif";
-import useGetUserInfo from "../../Hooks/useGetUserInfo";
-import { Spin } from "antd";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 const Profile = () => {
-  const { userInfo, loading } = useGetUserInfo("getUserInfo");
+  const [userProfile, setUserProfile] = useState(null); // State to hold user profile data
+
+  const token = sessionStorage.getItem('token')
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get("https://ssmp-api.onrender.com/api/v1/user/getUserProfileInfo", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Assuming userInfo contains the token
+            "Content-Type": "application/json",
+          },
+        });
+
+        setUserProfile(response.data.data);
+        console.log(response.data.data); // Set user profile data in state
+      } catch (error) {
+        console.error("An error occurred while fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [token]);
+
+
 
   return (
-    <Spin spinning={loading}>
+    
       <div className="  mx-9  m-3 flex gap-[4rem]">
         <div className="flex flex-col justify-center items-center gap-4">
           <img
@@ -15,53 +40,53 @@ const Profile = () => {
           />
         <hr className="w-auto mt-[12px]" />
           <h2 className=" bg-slate-100 p-4 rounded-md font-semibold">
-            {userInfo?.firstName + " " + userInfo?.lastName}
-            <span> - {userInfo?.role}</span>
+            {userProfile?.firstName + " " + userProfile?.lastName}
+            <span> - {userProfile?.role}</span>
           </h2>
   
          </div>
         <div className="grid gap-4 mt-8 ">
           <div className="grid grid-cols-[1fr_1fr] h-[4rem] bg-slate-100 p-4 rounded-md font-medium">
             <p className="">Full name : </p>
-            <p>{userInfo?.firstName + " " + userInfo?.lastName}</p>
+            <p>{userProfile?.firstName + " " + userProfile?.lastName}</p>
           </div>
           <div className="grid grid-cols-[1fr_1fr] h-[4rem] bg-slate-100 p-4 rounded-md font-medium">
             <p className="">Email : </p>
-            <p>{userInfo?.email}</p>
+            <p>{userProfile?.email}</p>
           </div>
-          {userInfo?.sex && (
+          {userProfile?.sex && (
             <div className="grid grid-cols-[1fr_1fr] h-[4rem] bg-slate-100 p-4 rounded-md font-medium">
               <p className="">Gender : </p>
-              <p>{userInfo?.sex}</p>
+              <p>{userProfile?.sex}</p>
             </div>
           )}
-          {userInfo?.lga && (
+          {userProfile?.lga && (
             <div className="grid grid-cols-[10rem_10rem]">
               <p className="">Local Govt. Area : </p>
-              <p>{userInfo?.lga}</p>
+              <p>{userProfile?.lga}</p>
             </div>
           )}
-          {userInfo?.programme && (
+          {userProfile?.programme && (
             <div className="grid grid-cols-[10rem_10rem]">
               <p className="">Programme : </p>
-              <p>{userInfo?.programme}</p>
+              <p>{userProfile?.programme}</p>
             </div>
           )}
-          {userInfo?.occupation && (
+          {userProfile?.occupation && (
             <div className="grid grid-cols-[10rem_10rem]">
               <p className="">Occupation : </p>
-              <p>{userInfo?.occupation}</p>
+              <p>{userProfile?.occupation}</p>
             </div>
           )}
-          {userInfo?.techStack && (
+          {userProfile?.techStack && (
             <div className="grid grid-cols-[10rem_10rem]">
               <p className="">Tech Stack : </p>
-              <p>{userInfo?.techStack?.toUpperCase()}</p>
+              <p>{userProfile?.techStack?.toUpperCase()}</p>
             </div>
           )}
         </div>
       </div>
-    </Spin>
+  
   );
 };
 

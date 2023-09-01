@@ -1,171 +1,3 @@
-// // import { Table, Spin } from "antd";
-// // import useGetApprovedParticipantInfo from "../Hooks/useGetApprovedParticipants";
-// // import { BsThreeDots } from 'react-icons/bs';
-
-
-// // const Approved = () => {
-// //   const { approvedParticipantsInfo, loading } = useGetApprovedParticipantInfo();
-
-// //   const columns = [
-// //     {
-// //       title: "S/N",
-// //       dataIndex: "sn",
-// //       key: "sn",
-// //     },
-
-// //     {
-// //       title: "First-Name",
-// //       dataIndex: "firstName",
-// //       key: "firstName",
-// //     },
-// //     {
-// //       title: "Last-Name",
-// //       dataIndex: "lastName",
-// //       key: "lastName",
-// //     },
-// //     {
-// //       title: "Email",
-// //       dataIndex: "email",
-// //       key: "email",
-// //     },
-// //     {
-// //       title: "LGA",
-// //       dataIndex: "lga",
-// //       key: "lga",
-// //     },
-// //     {
-// //       title: "DOB",
-// //       dataIndex: "dob",
-// //       key: "dob",
-// //     },
-// //     {
-// //       title: "Programme",
-// //       dataIndex: "programme",
-// //       key: "programme",
-// //     },
-
-// //     {
-// //       title: 'Action',
-// //       key: 'action',
-// //       render: () => (
-// //         <div>
-// //           <BsThreeDots />
-// //         </div>
-// //       ),
-// //     },
-// //   ];
-// // console.log(approvedParticipantsInfo);
-
-
-
-// // const data = approvedParticipantsInfo?.map((participant, index) => {
-// //     return {
-// //       key: participant.id,
-// //       sn: index + 1,
-// //       firstName: participant.firstName,
-// //       lastName: participant.lastName,
-// //       email: participant.email,
-// //       lga: participant.lga,
-// //       dob: participant.dob,
-// //       programme: participant.programme,
-// //     };
-// //   });
-
-// //   return (
-// //     <Spin spinning={loading}>
-// //       <div className="overflow-x-auto ">
-// //         <Table columns={columns} dataSource={data} />
-// //       </div>
-// //     </Spin>
-// //   );
-// // };
-
-// // export default Approved;
-
-
-// import { Table, Spin } from "antd";
-// import useGetApprovedParticipantInfo from "../Hooks/useGetApprovedParticipants";
-// import { BsThreeDots } from 'react-icons/bs';
-
-// const Approved = () => {
-//   const { approvedParticipantsInfo, loading } = useGetApprovedParticipantInfo();
-
-//   const columns = [
-//     {
-//       title: "S/N",
-//       dataIndex: "sn",
-//       key: "sn",
-//     },
-//     {
-//       title: "First-Name",
-//       dataIndex: "firstName",
-//       key: "firstName",
-//     },
-//     {
-//       title: "Last-Name",
-//       dataIndex: "lastName",
-//       key: "lastName",
-//     },
-//     {
-//       title: "Email",
-//       dataIndex: "email",
-//       key: "email",
-//     },
-//     {
-//       title: "LGA",
-//       dataIndex: "lga",
-//       key: "lga",
-//     },
-//     {
-//       title: "DOB",
-//       dataIndex: "dob",
-//       key: "dob",
-//     },
-//     {
-//       title: "Programme",
-//       dataIndex: "programme",
-//       key: "programme",
-//     },
-//     {
-//       title: 'Action',
-//       key: 'action',
-//       render: () => (
-//         <div>
-//           <BsThreeDots />
-//         </div>
-//       ),
-//     },
-//   ];
-
-//   console.log(approvedParticipantsInfo);
-
-//   const data = approvedParticipantsInfo?.map((participant, index) => ({
-//     key: participant._id, // Use the correct property that uniquely identifies a participant
-//     sn: index + 1,
-//     firstName: participant.firstName,
-//     lastName: participant.lastName,
-//     email: participant.email,
-//     lga: participant.lga,
-//     dob: participant.dob,
-//     programme: participant.programme,
-//   }));
-
-//   return (
-//     <Spin spinning={loading}>
-//       <div className="overflow-x-auto ">
-//         <Table columns={columns} dataSource={data} />
-//       </div>
-//     </Spin>
-//   );
-// };
-
-// export default Approved;
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { Table, Spin } from "antd";
 import axios from "axios";
@@ -231,16 +63,8 @@ const Approved = () => {
       title: "Programme",
       dataIndex: "programme",
       key: "programme",
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: () => (
-        <div>
-          <BsThreeDots />
-        </div>
-      ),
-    },
+    }
+    
   ];
 
   const userData = 
@@ -252,6 +76,7 @@ const Approved = () => {
     email: participant.email,
     lga: participant.lga,
     dob: participant.dob,
+    programme: participant.programme
     
   }));
 

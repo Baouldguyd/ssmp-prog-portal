@@ -4,7 +4,10 @@ import Sidebar from '../Components/Sidebar';
 import Profile from './Profile/Profile';
 
 
+
 const Admin = () => {
+
+ 
   return (
     <div className=' flex'>
         <Sidebar/>
