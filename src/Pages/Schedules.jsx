@@ -7,7 +7,6 @@ import TaskLists from '../Components/TaskLists';
 const Schedules = () => {
   return (
     <div className='flex'>
-        <Sidebar/>
         <hr className=' bg-black' />
           <TaskLists />
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar';
 
 const inputField = {
     width: '60vw',
@@ -18,7 +17,6 @@ const label ={
 const Upload = () => {
   return (
     <div className=' flex'>
-       <Sidebar/>
        
        <div className=' mt-8 ml-[3rem]'>
         <h1 className=' font-bold text-2xl'>

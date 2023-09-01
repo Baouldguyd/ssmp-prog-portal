@@ -45,7 +45,7 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Edward ${i}`,
-    age: Math.floor(Math.random() * 35),
+    age: Math.floor(Math.random() * 3),
     address: `${i} , Ikorodu, Lagos `,
     email: `dummmy@gmail.com`,
   });
