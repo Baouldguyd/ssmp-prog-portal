@@ -1,5 +1,11 @@
 import React from 'react'
+<<<<<<< HEAD
 import Participants from '../Participants/Participants';
+=======
+import Sidebar from '../Components/Sidebar';
+
+import Approved from '../Participants/Approved';
+>>>>>>> d52fe4e52e8c8f24acecb1db3b4edfbe1e41afb5
 
 
 const Students = () => {
@@ -14,7 +20,7 @@ const Students = () => {
           </div>
 
           <div className=' mt-4 ml-4 block m-a'>
-          <Participants/>
+          <Approved/>
           </div>
         
         </div>

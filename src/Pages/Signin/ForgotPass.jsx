@@ -69,7 +69,7 @@ useLayoutEffect(()=>{
         const { email, password } = signInInfo;
     console.log(email , password);
     const response = await axios.post(
-        process.env.REACT_APP_SSMP_BACKEND_API + "forgotPassword", { email }
+        process.env.REACT_APP_SSMP_BACKEND_API + "user/forgotPassword", { email }
     )
     console.log(response.data);
     setMessage(response.data.responseMessage?.toUpperCase());
@@ -78,8 +78,8 @@ useLayoutEffect(()=>{
         duration: 4000,
         position: "top-center",
       });
-      sessionStorage.setItem("token", response.data.data.token);
-      sessionStorage.setItem("userRole", response.data.data.role);
+      sessionStorage.getItem("token", response.data.data.token);
+      sessionStorage.getItem("userRole", response.data.data.role);
         setMessage('Login successful');
         navigate('/dashboard');
       } else {

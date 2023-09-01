@@ -10,13 +10,29 @@ import Setings from './Pages/Setings';
 import Signin from './Pages/Signin/Sigin';
 import Students from './Pages/Students';
 import Upload from './Pages/Upload';
+import { Navigate } from 'react-router-dom';
+import Profile from './Pages/Profile/Profile';
+import SignUp from './Pages/SignUp/SignUp';
+import Forgot from './Pages/Signin/ForgotPass'
+import Reset from './Pages/Signin/ResetPassword'
+import Tasks from './Pages/Tasks/Tasks';
+import LogOut from './Pages/LogOut'
+
+const ProtectedRoutes = ({children}) =>{
+  if(sessionStorage.getItem("role")){
+    return children
+  }else{
+    return <Navigate to={"/"} replace={true}/>
+  }
+}
 
 function App() {
   return (
 
-      <Router>
+      
         <Routes>
           <Route path='/' element={<Signin/>} />
+<<<<<<< HEAD
           <Route element={<Layout />}>
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/instructors' element={<Instructors/>} />
@@ -29,10 +45,38 @@ function App() {
             <Route path='/pending' element={<PendingApplicants/>} />
 
           </Route>
+=======
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path='/forgotpass' element={<Forgot/>} />
+          <Route path='/logOut' element={<LogOut/>} />
+          <Route path='/resetpassword' element={<Reset/>} />
+          <Route path='/dashboard' element={
+          <ProtectedRoutes><Dashboard/></ProtectedRoutes>
+          } />
+          <Route path='/tasks' element={
+          <ProtectedRoutes><Tasks/></ProtectedRoutes>
+          } />
+          <Route path='/instructors' element={
+           <ProtectedRoutes><Instructors/></ProtectedRoutes>} />
+          <Route path='/settings' element={
+          <ProtectedRoutes><Setings/></ProtectedRoutes>} />
+          <Route path='/students' element={
+          <ProtectedRoutes><Students/></ProtectedRoutes> } />
+          <Route path='/upload' element={
+          <ProtectedRoutes><Upload/></ProtectedRoutes>} />
+          <Route path='/profile' element={
+          <ProtectedRoutes><Profile/></ProtectedRoutes>} />
+          <Route path='/schedules' element={
+          <ProtectedRoutes><Schedules/></ProtectedRoutes>} />
+          <Route path='/admin' element={
+          <ProtectedRoutes><Admin/></ProtectedRoutes>} />
+          <Route path='/pending' element={
+          <ProtectedRoutes><PendingApplicants/></ProtectedRoutes>} />
+>>>>>>> d52fe4e52e8c8f24acecb1db3b4edfbe1e41afb5
 
         </Routes>
         
-      </Router>
+    
 
     
   );
