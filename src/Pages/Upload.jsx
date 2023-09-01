@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import React from 'react'
-=======
 import React, { useState } from 'react'
 import Sidebar from '../Components/Sidebar';
 import axios from 'axios';
->>>>>>> d52fe4e52e8c8f24acecb1db3b4edfbe1e41afb5
 
 const inputField = {
     width: '60vw',
