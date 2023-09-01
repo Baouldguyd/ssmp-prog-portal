@@ -194,7 +194,7 @@ useLayoutEffect(()=>{
                     
                     type="primary"
                     htmlType="button"
-                    className=" greenHover bg-green-600 hover:!bg-green-500 !important mt-10 flex items-center  text-[1.3rem] justify-center py-5 "
+                    className=" greenHover bg-green-600 hover:!bg-green-500 !important mt-10 flex items-center   justify-center py-5 "
                     block
                   >
                     Create new account

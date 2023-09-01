@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -168,6 +168,105 @@ const HtmlQuestions = () => {
               <td className="py-2 px-4">{task.deadline}</td>
               <td className="py-2 px-4 hover:underline">
               <Link to= {task.path}>{task.details}</Link>
+              </td>
+              <td className="py-2 px-4 text-red-400">
+                <button onClick={() => deleteTask(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default HtmlQuestions;
+ */
+
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios"; // Import Axios
+
+const HtmlQuestions = () => {
+  const [tasks, setTasks] = useState([]);
+
+  // Function to fetch task data from the backend
+  const fetchTasksFromBackend = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(process.env.REACT_APP_SSMP_BACKEND_API + "tasks/getAllTask",{
+        headers:{
+          Authorization: `Bearer ${token}`,
+          role: "ADMIN"
+        }
+      }); // Replace with your actual API endpoint
+      if (response.status === 200) {
+        const data = response.data.data;
+        setTasks(data); // Update the tasks state with the fetched data
+      } else {
+        console.error("Failed to fetch task data from the backend");
+      }
+    } catch (error) {
+      console.error("Error fetching task data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasksFromBackend(); // Fetch tasks when the component mounts
+  }, []);
+
+  const deleteTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  const addTask = (taskDetails) => {
+    setTasks([...tasks, taskDetails]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const taskDetails = {
+      course: formData.get("course"),
+      taskTitle: formData.get("taskTitle"),
+      taskPoints: parseInt(formData.get("taskPoints")),
+      status: "Not Submitted",
+      deadline: formData.get("deadline"),
+      details: "View",
+      path: "/details",
+    };
+    addTask(taskDetails);
+    event.target.reset();
+  };
+
+  return (
+    <div>
+      <table className="min-w-full">
+        <thead>
+          <tr className="bg-gray-100 font-bold text-sm">
+            <th className="py-2 px-4 ">Course</th>
+            <th className="py-2 px-4">Task Title</th>
+            <th className="py-2 px-4">Task Points</th>
+            <th className="py-2 px-4">Status</th>
+            <th className="py-2 px-4">Deadline</th>
+            <th className="py-2 px-4">Details</th>
+            <th className="py-2 px-4">Delete</th>
+          </tr>
+        </thead>
+        <tbody className="">
+          {tasks.map((task, index) => (
+            <tr
+              key={index}
+              className="text-center cursor-pointer rounded-xl text-gray-500 text-sm"
+            >
+              <td className="py-2 px-4">{task.course}</td>
+              <td className="py-2 px-4">{task.taskTitle}</td>
+              <td className="py-2 px-4">{task.taskPoints}</td>
+              <td className="py-2 px-4">{task.status}</td>
+              <td className="py-2 px-4">{task.deadline}</td>
+              <td className="py-2 px-4 hover:underline">
+                <Link to={task.path}>{task.details}</Link>
               </td>
               <td className="py-2 px-4 text-red-400">
                 <button onClick={() => deleteTask(index)}>Delete</button>

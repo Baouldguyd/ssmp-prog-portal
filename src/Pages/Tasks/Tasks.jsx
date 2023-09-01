@@ -18,20 +18,20 @@ function Tasks() {
     console.log('Received values of form: ', values);
     setOpen(false);
   };
-  const prev = () => {
+  /* const prev = () => {
     setCurrentStep(currentStep - 1);
   };
   const next = () => {
     setCurrentStep(currentStep + 1);
-  };
-  const handleNextClick =  () => {
+  }; */
+  /* const handleNextClick =  () => {
     try {
       
       setCurrentStep(currentStep + 1);
     } catch (errorInfo) {
       console.log(errorInfo);
     }
-  };
+  }; */
 
 const suffix = (
   <AudioOutlined
