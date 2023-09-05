@@ -187,7 +187,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import Axios
 
-const HtmlQuestions = () => {
+const HtmlQuestions = ({ taskDetails }) => {
   const [tasks, setTasks] = useState([]);
 
   // Function to fetch task data from the backend
@@ -201,8 +201,10 @@ const HtmlQuestions = () => {
         }
       }); // Replace with your actual API endpoint
       if (response.status === 200) {
+        
         const data = response.data.data;
-        const htmlTasks = data.filter((task) => task.course === "HTML");
+        const htmlTasks = data.filter((task) => task.course.toUpperCase() === "HTML".toUpperCase());
+        console.log(htmlTasks);
       setTasks(htmlTasks) // Update the tasks state with the fetched data
       } else {
         console.error("Failed to fetch task data from the backend");
@@ -258,21 +260,21 @@ const HtmlQuestions = () => {
         <tbody className="">
           {tasks.map((task, index) => (
             <tr
-              key={index}
-              className="text-center cursor-pointer rounded-xl text-gray-500 text-sm"
-            >
-              <td className="py-2 px-4">{task.course}</td>
-              <td className="py-2 px-4">{task.taskTitle}</td>
-              <td className="py-2 px-4">{task.taskPoints}</td>
-              <td className="py-2 px-4">{task.status}</td>
-              <td className="py-2 px-4">{task.deadline}</td>
-              <td className="py-2 px-4 hover:underline">
-              <Link to={`/details/${task.id}`}>{task.details}</Link>
-              </td>
-              <td className="py-2 px-4 text-red-400">
-                <button onClick={() => deleteTask(index)}>Delete</button>
-              </td>
-            </tr>
+            key={index}
+            className="text-center cursor-pointer rounded-xl text-gray-500 text-sm"
+          >
+            <td className="py-2 px-4">{task.course}</td>
+            <td className="py-2 px-4">{task.taskTitle}</td>
+            <td className="py-2 px-4">{task.taskPoints}</td>
+            <td className="py-2 px-4">{task.status}</td>
+            <td className="py-2 px-4">{task.deadline}</td>
+            <td className="py-2 px-4 hover:underline">
+            <Link to={`/details/${task._id}`}>View</Link>
+            </td>
+            <td className="py-2 px-4 text-red-400">
+              <button onClick={() => deleteTask(index)}>Delete</button>
+            </td>
+          </tr>
           ))}
         </tbody>
       </table>

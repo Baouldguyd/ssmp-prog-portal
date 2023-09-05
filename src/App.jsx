@@ -45,7 +45,7 @@ function App() {
           <Route path='/tasks' element={
           <ProtectedRoutes><Tasks/></ProtectedRoutes>
           } />
-          <Route path='/details' element={
+          <Route path='/details/:id' element={
           <ProtectedRoutes><TaskQuestions/></ProtectedRoutes>
           } />
           <Route path='/instructors' element={
