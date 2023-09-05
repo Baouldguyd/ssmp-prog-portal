@@ -188,19 +188,7 @@ useLayoutEffect(()=>{
                 </Col>
                 
               </Row>
-              <Col className=" m-auto" span={20}>
-                <Link to={"/signup"}>
-                  <Button
-                    
-                    type="primary"
-                    htmlType="button"
-                    className=" greenHover bg-green-600 hover:!bg-green-500 !important mt-10 flex items-center   justify-center py-5 "
-                    block
-                  >
-                    Create new account
-                  </Button>
-                  </Link>
-                </Col>
+              
             </Form>
           </div>
         </div>

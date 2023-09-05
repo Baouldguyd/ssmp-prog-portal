@@ -35,7 +35,7 @@ const Sidebar = () => {
     { title: "Upload Events", to : '/upload' },
     
     { title: "Admin Profile", spacing: true, to : '/admin' },
-    { title: "Setting", to: '/settings' },
+    { title: "Create Admin", to: '/signup' },
     { title: "LogOut",  onClick:handleLogout },
   ];
   return (

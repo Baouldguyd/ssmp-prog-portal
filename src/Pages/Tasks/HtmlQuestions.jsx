@@ -202,7 +202,8 @@ const HtmlQuestions = () => {
       }); // Replace with your actual API endpoint
       if (response.status === 200) {
         const data = response.data.data;
-        setTasks(data); // Update the tasks state with the fetched data
+        const htmlTasks = data.filter((task) => task.course === "HTML");
+      setTasks(htmlTasks) // Update the tasks state with the fetched data
       } else {
         console.error("Failed to fetch task data from the backend");
       }
@@ -266,7 +267,7 @@ const HtmlQuestions = () => {
               <td className="py-2 px-4">{task.status}</td>
               <td className="py-2 px-4">{task.deadline}</td>
               <td className="py-2 px-4 hover:underline">
-                <Link to={task.path}>{task.details}</Link>
+              <Link to={`/details/${task.id}`}>{task.details}</Link>
               </td>
               <td className="py-2 px-4 text-red-400">
                 <button onClick={() => deleteTask(index)}>Delete</button>
