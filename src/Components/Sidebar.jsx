@@ -19,21 +19,12 @@ const Sidebar = ({open, setOpen}) => {
     {
       
        title: 'Approved Students', to : '/students',
-       title: 'Rejected Students', to : '/disapproved'
+       title: 'Rejected Students', to : '/disapproved',
 
 
     { title: " Applicants", spacing: true, to: '/pending' },
-
-   
-
-    {
-      
-       title: 'Approved Students', to : '/students',
-
-       
   
-      
-    },
+    { title: 'Approved Students', to : '/students' },
 
     { title: 'Task', to:'/tasks'},
     { title: "Upload Events", to : '/upload' },
