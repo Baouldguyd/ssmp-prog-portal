@@ -159,9 +159,7 @@ const Homepage = () => {
                     Approved Applicants
                   </h1>
                   </p>
-                  <p className=" text-black text-4xl font-extrabold  ml-14 mt-4 ">
-                    1,300
-                  </p>
+                  
                   <p id="approvedUsers" className=" text-slate-500 text-4xl font-extrabold  ml-14 mt-1 " >
                   
                   </p>
@@ -210,11 +208,7 @@ const Homepage = () => {
             <div className=" overflow-auto  ml-20 bg-slate-50 shadow-lg h-[30rem] w-[100%] border-l-8 border-blue-500 rounded-lg mt-20 hover:scale-100 duration-200 ">
               <Calendar className=" w-[100%]" />
             </div>
-            <div className=" ml-20 bg-slate-50 shadow-lg h-[30rem] w-[45rem] border-l-8 border-blue-500 rounded-lg mt-20 hover:scale-110 duration-200 ">
-              <h1 className=" text-3xl p-5 font-extrabold ">Schedules</h1>
-            </div>
-
-
+            
             <div className="border-l-8 rounded-lg border-black p-5">
               <Schedules/>
             </div>
