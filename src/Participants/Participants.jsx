@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect } from "react";
+
 import { Table, Spin } from "antd";
 import axios from "axios";
 
@@ -23,7 +25,9 @@ const Approved = () => {
         console.log(response.data.data);
       })
       .catch((error) => {
+
         console.error("Error fetching approved participants:", error);
+
         setLoading(false);
       });
   }, []);
@@ -137,6 +141,7 @@ const Approved = () => {
       dataIndex: "programme",
       key: "programme",
     },
+
     {
       title: 'Action',
       key: 'action',
@@ -174,6 +179,7 @@ const Approved = () => {
     programme: participant.programme
     
   }));
+
 
   return (
     <Spin spinning={loading}>

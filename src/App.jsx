@@ -1,4 +1,6 @@
+
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+
 import '../src/index.css';
 import Layout from './Components/Layout';
 import Admin from './Pages/Admin';
@@ -9,13 +11,15 @@ import Schedules from './Pages/Schedules';
 import Setings from './Pages/Setings';
 import Signin from './Pages/Signin/Sigin';
 import Students from './Pages/Students';
+import Disapproved from './Pages/Disapproved';
 import Upload from './Pages/Upload';
-
 
 
 function App() {
   return (
+
     <BrowserRouter>
+
       <Routes>
         <Route path="/" element={<Signin />} />
         <Route element={<Layout />}>
@@ -28,8 +32,14 @@ function App() {
           <Route path="/schedules" element={<Schedules />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/pending" element={<PendingApplicants />} />
+
+          <Route path="/disapproved" element={ <Disapproved/> } />
+          
+        
         </Route>
       </Routes>
+      
+
     </BrowserRouter>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar';
-import TaskLists from '../Components/TaskLists';
+import EventSchedules from '../Components/EventSchedules';
 
 
 
@@ -8,7 +7,7 @@ const Schedules = () => {
   return (
     <div className='flex'>
         <hr className=' bg-black' />
-          <TaskLists />
+          <EventSchedules/>
 
     </div>
   )

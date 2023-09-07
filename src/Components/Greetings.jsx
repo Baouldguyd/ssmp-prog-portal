@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+
+
 import { PiCloudSunDuotone } from "react-icons/pi";
 
 function Greetings() {
@@ -25,6 +25,6 @@ function Greetings() {
   return <h1 className=" flex gap-3 mt-[-2rem] font-bold" style={styles}> Good {timeOfDay} <span className=" text-4xl text-yellow-500"><PiCloudSunDuotone/></span></h1>;
 }
 
-// ReactDOM.render(<Greetings />, document.getElementById("root"));
+
 
 export default Greetings;

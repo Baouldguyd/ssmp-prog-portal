@@ -14,22 +14,28 @@ const Sidebar = ({open, setOpen}) => {
   const Menus = [
     { title: "Dashboard", to : '/dashboard' },
     { title: "Instructors", to: '/instructors' },
-<<<<<<< HEAD
-    { title: " Applicants", spacing: true, to: '/pending' },
-=======
+
     { title: "Applicants", spacing: true, to: '/pending' },
->>>>>>> 2762d921f11ac1eb26d42772a94d719af3493bfc
+    {
+      
+       title: 'Approved Students', to : '/students',
+       title: 'Rejected Students', to : '/disapproved'
+
+
+    { title: " Applicants", spacing: true, to: '/pending' },
+
    
 
     {
       
        title: 'Approved Students', to : '/students',
+
        
   
       
     },
 
-    { title: 'Task', to:'/schedules'},
+    { title: 'Task', to:'/tasks'},
     { title: "Upload Events", to : '/upload' },
     
     { title: "Admin Profile", spacing: true, to : '/admin' },
