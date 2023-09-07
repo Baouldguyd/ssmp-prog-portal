@@ -14,18 +14,17 @@ const Sidebar = () => {
   const Menus = [
     { title: "Dashboard", to : '/dashboard' },
     { title: "Instructors", to: '/instructors' },
-    { title: "Pending Applicants", spacing: true, to: '/pending' },
-   
-
+    { title: "Applicants", spacing: true, to: '/pending' },
     {
       
-       title: 'Enrolled Students', to : '/students',
+       title: 'Approved Students', to : '/students',
+       title: 'Rejected Students', to : '/disapproved'
        
   
       
     },
 
-    { title: 'Task', to:'/schedules'},
+    { title: 'Task', to:'/tasks'},
     { title: "Upload Events", to : '/upload' },
     
     { title: "Admin Profile", spacing: true, to : '/admin' },

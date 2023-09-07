@@ -10,7 +10,7 @@ const Students = () => {
         <div>
 
           <div className=' mt-8'>
-            <h1 className=' font-semibold text-xl '>
+            <h1 className=' font-semibold text-xl ml-[2rem]'>
               Here are the details of students at SAIL
             </h1>
           </div>
