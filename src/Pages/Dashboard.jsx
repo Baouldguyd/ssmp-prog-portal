@@ -1,16 +1,10 @@
-import React from 'react'
-import Homepage from '../Components/Homepage'
-import Layout from '../Components/Layout'
-import Sidebar from '../Components/Sidebar'
-
+import React from "react";
+import Homepage from "../Components/Homepage";
+import Layout from "../Components/Layout";
+import Sidebar from "../Components/Sidebar";
 
 const Dashboard = () => {
-  return (
-    <div className=' flex'>
-        <Sidebar/>
-        <Homepage/>
-    </div>
-  )
-}
+  return <Homepage />;
+};
 
-export default Dashboard
+export default Dashboard;

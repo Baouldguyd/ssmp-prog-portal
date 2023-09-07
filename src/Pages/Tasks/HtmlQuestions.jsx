@@ -146,21 +146,7 @@ const HtmlQuestions = () => {
 
   return (
     <div>
-       <div className=" mb-[1rem]">
-       <form className=" text-blue-600" onSubmit={handleSubmit}>
-        <label>Course:</label>
-        <input className=" border-blue-500 border-2 mr-4" type="text" name="course" required />
-        <label>Task Title:</label>
-        <input className=" border-blue-500 border-2 mr-4 md:mr-[3.7rem]" type="text" name="taskTitle" required />
-        <label>Task Points:</label>
-        <input className=" border-blue-500 border-2 mr-4 md:mt-2" type="number" name="taskPoints" required />
-        <label>Deadline:</label>
-        <input className=" mr-8 " type="date" name="deadline" required />
-        <div className=" flex align-middle justify-center mt-2">
-        <button className=" bg-blue-500 px-2 rounded-md text-white" type="submit">Add Task</button>
-        </div>
-      </form>
-      </div>
+       
       <table className="min-w-full">
         <thead>
           <tr className="bg-gray-100 font-bold text-sm">

@@ -1,5 +1,6 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+
 import '../src/index.css';
 import Layout from './Components/Layout';
 import Admin from './Pages/Admin';
@@ -14,13 +15,11 @@ import Disapproved from './Pages/Disapproved';
 import Upload from './Pages/Upload';
 
 
-
-
 function App() {
   return (
 
     <BrowserRouter>
-    
+
       <Routes>
         <Route path="/" element={<Signin />} />
         <Route element={<Layout />}>
@@ -33,12 +32,14 @@ function App() {
           <Route path="/schedules" element={<Schedules />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/pending" element={<PendingApplicants />} />
+
           <Route path="/disapproved" element={ <Disapproved/> } />
           
         
         </Route>
       </Routes>
       
+
     </BrowserRouter>
   );
 }

@@ -11,10 +11,12 @@ const Popmodal = () => (
     okText="Decline"
     okType="danger"
     cancelText="Approve"
-    style={{ width: "30px", backgroundColor: "black", color: "white" }}
+    style={{ width:"30px", backgroundColor: "black", color: "white" }}
   >
     <BsThreeDots />
+    
   </Popconfirm>
 );
 
 export default Popmodal;
+

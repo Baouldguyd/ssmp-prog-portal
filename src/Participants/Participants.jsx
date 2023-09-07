@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+
+import React, { useState, useEffect } from "react";
+
 import { Table, Spin } from "antd";
 import axios from "axios";
 
@@ -23,7 +25,9 @@ const Approved = () => {
         console.log(response.data.data);
       })
       .catch((error) => {
-        console.error("Error fetching participants:", error);
+
+        console.error("Error fetching approved participants:", error);
+
         setLoading(false);
       });
   }, []);
@@ -107,7 +111,6 @@ const Approved = () => {
       dataIndex: "sn",
       key: "sn",
     },
-
     {
       title: "First-Name",
       dataIndex: "firstName",
@@ -124,53 +127,64 @@ const Approved = () => {
       key: "email",
     },
     {
+      title: "LGA",
+      dataIndex: "lga",
+      key: "lga",
+    },
+    {
+      title: "DOB",
+      dataIndex: "dob",
+      key: "dob",
+    },
+    {
       title: "Programme",
       dataIndex: "programme",
       key: "programme",
     },
 
     {
-      title: "operation",
-      dataIndex: "operation",
-      
-      render: () =>
-        {
-          <div>
-            <button
-            onClick={
-              handleApproveStudents
-            }
-            >
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <div className=" gap-4 flex">
+          <button
+            className="bg-blue-700 h-[1.5rem] w-[5rem] text-white font-semibold rounded-md"
+            onClick={() => handleApproveStudents(record.key)} // Pass the student ID to the function
+          >
             Approve
           </button>
-          <button onClick={
-            handleDisapproveStudents
-          }>
-            DisApprove
+
+          <button
+            className="bg-red-700 h-[1.5rem] w-[5rem] text-white font-semibold rounded-md"
+            onClick={() => handleDisapproveStudents(record.key)} // Pass the student ID to the function
+          >
+            Disapprove
           </button>
-          </div>
 
-        }
+
+        </div>
+      ),
     },
-
-
   ];
-console.log(ParticipantsInfo);
-  const data = ParticipantsInfo?.map((participant, index) => {
-    return {
-      key: participant.id,
-      sn: index + 1,
-      firstName: participant.firstName,
-      lastName: participant.lastName,
-      email: participant.email,
-      programme: participant.programme,
-    };
-  });
+
+  const userData = 
+  ParticipantsInfo?.map((participant, index) => ({
+    key: participant._id, // Use the correct property that uniquely identifies a participant
+    sn: index + 1,
+    firstName: participant.firstName,
+    lastName: participant.lastName,
+    email: participant.email,
+    lga: participant.lga,
+    dob: participant.dob,
+    programme: participant.programme
+    
+  }));
+
 
   return (
     <Spin spinning={loading}>
-      <div className="overflow-x-auto">
-        <Table columns={columns} dataSource={data} />
+      <div className="overflow-x-auto ">
+        <Table columns={columns} dataSource={userData} />
       </div>
     </Spin>
   );

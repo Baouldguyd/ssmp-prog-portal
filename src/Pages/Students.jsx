@@ -1,12 +1,10 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar';
-import Participants from '../Participants/Participants';
+import Approved from "../Participants/Approved"
 
 
 const Students = () => {
   return (
     <div className=' flex gap-4'>
-        <Sidebar/>
         <div>
 
           <div className=' mt-8'>
@@ -16,7 +14,7 @@ const Students = () => {
           </div>
 
           <div className=' mt-4 ml-4 block m-a'>
-          <Participants/>
+          <Approved/>
           </div>
         
         </div>
