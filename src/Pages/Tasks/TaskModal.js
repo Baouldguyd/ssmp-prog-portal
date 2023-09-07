@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const TaskModal = ({ isOpen, onRequestClose, onSaveEdit, initialValue, selectedTask }) => {
-  const [editedValue, setEditedValue] = useState(initialValue);
+const TaskModal = ({ isOpen, onRequestClose, onSaveEdit, editedDescription, selectedTask }) => {
+  const [editedValue, setEditedValue] = useState(editedDescription); // Initialize with editedDescription prop
+
+  useEffect(() => {
+    // Update the local state when editedDescription prop changes
+    setEditedValue(editedDescription);
+  }, [editedDescription]);
 
   if (!isOpen) {
     return null;
@@ -11,6 +17,7 @@ const TaskModal = ({ isOpen, onRequestClose, onSaveEdit, initialValue, selectedT
     onSaveEdit(editedValue); // Pass the edited value back to the parent component
     onRequestClose(); // Close the modal
   };
+
 
   return (
     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-8 rounded-lg p-6">

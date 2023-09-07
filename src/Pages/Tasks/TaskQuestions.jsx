@@ -4,68 +4,78 @@ import TaskModal from "./TaskModal";
 import { useParams } from "react-router-dom";
 import { Input } from "antd";
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
 const TaskQuestions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editableIndex, setEditableIndex] = useState(null);
-  const [editedDescription, setEditedDescription] = useState("");
-  const [taskDetails, setTaskDetails] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
   const { id } = useParams();
+  const [editedDescription, setEditedDescription] = useState("");
 
-  // ... (other code)
+  useEffect(() => {
+    // Fetch task details when the component mounts
+    const fetchTaskDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SSMP_BACKEND_API}tasks/getAllTask`, // Adjust the URL to match your API endpoint
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+          }
+        );
 
-  const handleEditQuestion = (index) => {
-    if (taskDetails[index]) {
-      setEditableIndex(index);
-      setEditedDescription(taskDetails[index].taskDescription);
-      setIsModalOpen(true);
-    } else {
-      console.error("Task description is not available for this task.");
-    }
+        // Filter tasks based on the id
+        const filteredTask = response.data.data.find((task) => task._id === id);
+
+        if (filteredTask) {
+          setSelectedTask(filteredTask);
+          setEditedDescription(filteredTask.taskDescription);
+        } else {
+          console.error("Task not found for ID:", id);
+        }
+      } catch (error) {
+        console.error("Error fetching task details:", error.message);
+      }
+    };
+
+    fetchTaskDetails(); // Call the function here
+  }, [id]);
+
+  const handleEditQuestion = () => {
+    setIsModalOpen(true);
   };
-
-  const handleSaveEdit = async (editedValue) => {
+  const handleSaveEdit = async () => {
     try {
-      // Add logic to save the edited description
-      // You can use the editedValue parameter to access the edited content
-
-      // Example:
-      // const response = await axios.put(
-      //   `${process.env.REACT_APP_SSMP_BACKEND_API}tasks/updateTask`,
-      //   {
-      //     taskId: selectedTask._id,
-      //     updatedDescription: editedValue,
-      //   },
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      //     },
-      //   }
-      // );
-
-      // Handle the response and update the taskDetails if needed
-
+      await axios.put(
+        `${process.env.REACT_APP_SSMP_BACKEND_API}tasks/updateTask/:${selectedTask._id}`,
+        {
+          updatedDescription: editedDescription, // Send only the updated description
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      );
+  
+      // Handle the response if needed
+  
       setIsModalOpen(false); // Close the modal after saving
     } catch (error) {
       console.error("Error updating task description:", error);
     }
   };
-
-  if (!taskDetails || taskDetails.length === 0) {
-    return <div>Loading...</div>;
-  }
-
-  const selectedTask = taskDetails.find((taskItem) => taskItem._id === id);
+  
 
   if (!selectedTask) {
-    return <div>Task not found for ID: {id}</div>;
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="flex h-[100vh] w-screen">
       <div className="p-8 max-w-[80%]" style={{ backgroundColor: "#F4F7FE" }}>
-        <div key={selectedTask._id} className="mb-8">
+        <div className="mb-8">
           <h2 className="text-2xl font-bold">
             Task Submission: {selectedTask.taskTitle}
           </h2>
@@ -75,13 +85,15 @@ const TaskQuestions = () => {
               Task Question
             </label>
             <div>
-              <textarea
+              <TextArea
+                cols={5}
+                rows={4}
                 value={editedDescription}
                 onChange={(e) => setEditedDescription(e.target.value)}
               />
               <button
-                onClick={() => handleEditQuestion(selectedTask._id)}
-                style={{ backgroundColor: "yellow" }}
+                onClick={handleEditQuestion}
+                className="bg-yellow-400 text-white mt-[1rem] rounded p-1"
               >
                 Edit
               </button>
@@ -95,7 +107,7 @@ const TaskQuestions = () => {
         onRequestClose={() => setIsModalOpen(false)}
         onSaveEdit={handleSaveEdit}
         initialValue={editedDescription}
-        selectedTask={selectedTask} // Pass selectedTask as a prop
+        selectedTask={selectedTask}
       />
     </div>
   );
