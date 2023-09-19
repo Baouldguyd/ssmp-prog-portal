@@ -31,6 +31,7 @@ const Sidebar = ({open, setOpen}) => {
     
     { title: "Admin Profile", spacing: true, to : '/admin' },
     { title: "Setting", to: '/settings' },
+    { title: "LogOut", to: '/logout' }
   ];
   return (
     <div className=" fixed h-screen flex bg-slate-50 z-50">
