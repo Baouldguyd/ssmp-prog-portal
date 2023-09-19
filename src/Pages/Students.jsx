@@ -1,17 +1,14 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar';
-
-import Approved from '../Participants/Approved';
+import Approved from "../Participants/Approved"
 
 
 const Students = () => {
   return (
     <div className=' flex gap-4'>
-        <Sidebar/>
         <div>
 
           <div className=' mt-8'>
-            <h1 className=' font-semibold text-xl '>
+            <h1 className=' font-semibold text-xl ml-[2rem]'>
               Here are the details of students at SAIL
             </h1>
           </div>

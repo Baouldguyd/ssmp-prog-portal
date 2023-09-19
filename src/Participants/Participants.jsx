@@ -1,9 +1,109 @@
-import { Table, Spin } from "antd";
-import useGetParticipantInfo from "../Hooks/useGetParticipants";
-import Popmodal from "../Pages/Popmodal";
 
-const Participants = () => {
-  const { participantsInfo, loading } = useGetParticipantInfo();
+import React, { useState, useEffect } from "react";
+
+import { Table, Spin } from "antd";
+import axios from "axios";
+
+
+const Approved = () => {
+  const [ParticipantsInfo, setParticipantsInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    axios
+      .get("https://ssmp-api.onrender.com/api/v1/user/getAllUsers", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setParticipantsInfo(response.data.data.totalParticipants);
+        setLoading(false);
+        console.log(response.data.data);
+      })
+      .catch((error) => {
+
+        console.error("Error fetching approved participants:", error);
+
+        setLoading(false);
+      });
+  }, []);
+
+  const apiUrl = 'https://ssmp-api.onrender.com/api/v1/user/approvePendingParticipants/';
+  
+  const newToken = sessionStorage.getItem('token')
+
+  const handleApproveStudents = async (studentId) => {
+    console.log(newToken);
+    
+    try {
+      const responseStudents = await axios.put(
+        apiUrl + studentId,
+        {
+          // Include the additional data inside the request body
+          approvalStatus: 'APPROVED',
+          startDate: '2023-08-01',
+          endDate: '2024-02-01',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${newToken}`,
+          },
+        }
+      );
+
+      window.alert(responseStudents.data.responseMessage)
+
+      console.log(`Student with ID ${studentId} has been approved.`);
+      // Check if the request was successful
+      if (responseStudents.status === 200) {
+        console.log(`Student with ID ${studentId} has been approved.`);
+      } else {
+        console.error(`Failed to approve student with ID ${studentId}.`);
+      }
+    } catch (error) {
+      console.error('Error approving student:', error);
+    }
+  };
+
+  const handleDisapproveStudents = async (studentId) => {
+    console.log(newToken);
+    
+    try {
+      const responseStudents = await axios.put(
+        apiUrl + studentId,
+        {
+          // Include the additional data inside the request body
+          approvalStatus: 'DISAPPROVED',
+          startDate: '2023-08-01',
+          endDate: '2024-02-01',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${newToken}`,
+          },
+        }
+      );
+
+      window.alert(responseStudents.data.responseMessage)
+
+      console.log(`Student with ID ${studentId} has been approved.`);
+      // Check if the request was successful
+      if (responseStudents.status === 200) {
+        console.log(`Student with ID ${studentId} has been approved.`);
+      } else {
+        console.error(`Failed to approve student with ID ${studentId}.`);
+      }
+    } catch (error) {
+      console.error('Error approving student:', error);
+    }
+  };
+
 
   const columns = [
     {
@@ -11,7 +111,6 @@ const Participants = () => {
       dataIndex: "sn",
       key: "sn",
     },
-
     {
       title: "First-Name",
       dataIndex: "firstName",
@@ -44,41 +143,51 @@ const Participants = () => {
     },
 
     {
-      title: "Action",
-      key: "operation",
-      fixed: "right",
-      width: 10,
-      render: () => <Popmodal />,
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <div className=" gap-4 flex">
+          <button
+            className="bg-blue-700 h-[1.5rem] w-[5rem] text-white font-semibold rounded-md"
+            onClick={() => handleApproveStudents(record.key)} // Pass the student ID to the function
+          >
+            Approve
+          </button>
+
+          <button
+            className="bg-red-700 h-[1.5rem] w-[5rem] text-white font-semibold rounded-md"
+            onClick={() => handleDisapproveStudents(record.key)} // Pass the student ID to the function
+          >
+            Disapprove
+          </button>
+
+
+        </div>
+      ),
     },
   ];
- 
-  console.log(participantsInfo);
-  const data = participantsInfo?.map((participant, index) => {
-    const date = new Date(participant.dob).getDay();
-    return {
-      key: participant.id,
-      sn: index + 1,
-      firstName: participant.firstName,
-      lastName: participant.lastName,
-      email: participant.email,
-      lga: participant.lga,
-      dob: new Date(participant.dob).toLocaleDateString("en-us", {
-        weekday: "long",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-      programme: participant.programme,
-    };
-  });
+
+  const userData = 
+  ParticipantsInfo?.map((participant, index) => ({
+    key: participant._id, // Use the correct property that uniquely identifies a participant
+    sn: index + 1,
+    firstName: participant.firstName,
+    lastName: participant.lastName,
+    email: participant.email,
+    lga: participant.lga,
+    dob: participant.dob,
+    programme: participant.programme
+    
+  }));
+
 
   return (
     <Spin spinning={loading}>
       <div className="overflow-x-auto ">
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={userData} />
       </div>
     </Spin>
   );
 };
 
-export default Participants;
+export default Approved;

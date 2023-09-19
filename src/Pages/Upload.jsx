@@ -20,7 +20,6 @@ const Upload = () => {
   const [eventData, setEventData] = useState({
     eventName: '',
     eventDescription: '',
-    eventImage: 'htpp', 
     speaker: '',
     eventUrl: ''
     // Store the uploaded file
@@ -32,7 +31,6 @@ const Upload = () => {
     setEventData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,22 +46,20 @@ const Upload = () => {
             'Content-Type': 'application/json',
           },
         },
-      )
+      );
+
+
 
       if (response.status == "00") {
         console.log('Failed to create event.');
         window.alert('Failed to create event.' )
         // Handle success
-
-
       } else {
         console.log('Event created successfully!');
         window.alert('Event created successfully!')
       }
 
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error('An error occurred:', error);
       window.alert('An error occurred:', error);
       // Handle error cases
@@ -75,7 +71,6 @@ const Upload = () => {
 
   return (
     <div className=' flex'>
-       <Sidebar/>
        
        <div className=' mt-8 ml-[3rem]'>
         <h1 className=' font-bold text-2xl'>
@@ -99,7 +94,7 @@ const Upload = () => {
           <input type="text" name="speaker" id="speaker"  style={inputField} onChange={handleInputChange} />
           
           <br /> <br />
-          
+    
           <label htmlFor="eventDate" style={label}>Event Date</label> <br />
           <input type="date" name="eventDate" onChange={handleInputChange} id="eventDate" style={inputField} />
           

@@ -1,15 +1,13 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar';
-import TaskLists from '../Components/TaskLists';
+import EventSchedules from '../Components/EventSchedules';
 
 
 
 const Schedules = () => {
   return (
     <div className='flex'>
-        <Sidebar/>
         <hr className=' bg-black' />
-          <TaskLists />
+          <EventSchedules/>
 
     </div>
   )

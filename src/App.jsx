@@ -1,4 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
+
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+
+
 import '../src/index.css';
 import Layout from './Components/Layout';
 import Admin from './Pages/Admin';
@@ -9,6 +12,7 @@ import Schedules from './Pages/Schedules';
 import Setings from './Pages/Setings';
 import Signin from './Pages/Signin/Sigin';
 import Students from './Pages/Students';
+import Disapproved from './Pages/Disapproved';
 import Upload from './Pages/Upload';
 import { Navigate } from 'react-router-dom';
 import Profile from './Pages/Profile/Profile';
@@ -21,13 +25,7 @@ import Create from './Pages/Tasks/CreateView';
 import TaskQuestions from './Pages/Tasks/TaskQuestions';
 
 
-const ProtectedRoutes = ({children}) =>{
-  if(sessionStorage.getItem("role")){
-    return children
-  }else{
-    return <Navigate to={"/"} replace={true}/>
-  }
-}
+
 
 function App() {
   return (
@@ -65,9 +63,8 @@ function App() {
           <Route path='/pending' element={
           <ProtectedRoutes><PendingApplicants/></ProtectedRoutes>} />
 
-        </Routes>
-        
-    
+      </Routes>
+      
 
     
   );
