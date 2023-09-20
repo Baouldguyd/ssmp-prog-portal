@@ -23,11 +23,14 @@ import Tasks from './Pages/Tasks/Tasks';
 import LogOut from './Pages/LogOut'
 import Create from './Pages/Tasks/CreateView';
 import TaskQuestions from './Pages/Tasks/TaskQuestions';
-
+import ProtectedRoute from './ProtectedRoutes';
 
 
 
 function App() {
+
+
+
   return (
 
       
@@ -38,30 +41,30 @@ function App() {
           <Route path='/logOut' element={<LogOut/>} />
           <Route path='/resetpassword' element={<Reset/>} />
           <Route path='/dashboard' element={
-          <ProtectedRoutes><Dashboard/></ProtectedRoutes>
+          <ProtectedRoute><Dashboard/></ProtectedRoute>
           } />
           <Route path='/tasks' element={
-          <ProtectedRoutes><Tasks/></ProtectedRoutes>
+          <ProtectedRoute><Tasks/></ProtectedRoute>
           } />
           <Route path='/details/:id' element={
-          <ProtectedRoutes><TaskQuestions/></ProtectedRoutes>
+          <ProtectedRoute><TaskQuestions/></ProtectedRoute>
           } />
           <Route path='/instructors' element={
-           <ProtectedRoutes><Instructors/></ProtectedRoutes>} />
+           <ProtectedRoute><Instructors/></ProtectedRoute>} />
           <Route path='/settings' element={
-          <ProtectedRoutes><Setings/></ProtectedRoutes>} />
+          <ProtectedRoute><Setings/></ProtectedRoute>} />
           <Route path='/students' element={
-          <ProtectedRoutes><Students/></ProtectedRoutes> } />
+          <ProtectedRoute><Students/></ProtectedRoute> } />
           <Route path='/upload' element={
-          <ProtectedRoutes><Upload/></ProtectedRoutes>} />
+          <ProtectedRoute><Upload/></ProtectedRoute>} />
           <Route path='/profile' element={
-          <ProtectedRoutes><Profile/></ProtectedRoutes>} />
+          <ProtectedRoute><Profile/></ProtectedRoute>} />
           <Route path='/schedules' element={
-          <ProtectedRoutes><Schedules/></ProtectedRoutes>} />
+          <ProtectedRoute><Schedules/></ProtectedRoute>} />
           <Route path='/admin' element={
-          <ProtectedRoutes><Admin/></ProtectedRoutes>} />
+          <ProtectedRoute><Admin/></ProtectedRoute>} />
           <Route path='/pending' element={
-          <ProtectedRoutes><PendingApplicants/></ProtectedRoutes>} />
+          <ProtectedRoute><PendingApplicants/></ProtectedRoute>} />
 
       </Routes>
       
