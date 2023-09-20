@@ -95,8 +95,8 @@ const CreateView = ({ open, onCreate, onCancel }) => {
           ]}
         >
           <Select  onChange={(value) => handleInputChange({ name: 'course', value })}>
-            <Select.Option value="Html">Html</Select.Option>
-            <Select.Option value="Css">Css</Select.Option>
+            <Select.Option value="HTML">HTML</Select.Option>
+            <Select.Option value="CSS">CSS</Select.Option>
             <Select.Option value="JavaScript">JavaScript</Select.Option>
             <Select.Option value="React">React</Select.Option>
           </Select>

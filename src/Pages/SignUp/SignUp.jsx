@@ -41,7 +41,7 @@ const SignUp = () => {
 
       <div className=" justify-center m-auto items-center bg-white w-[25rem]">
         <div className="text-center text-2xl font-bold">
-          <h1>Sign Up</h1>
+          <h1>Create Admin</h1>
         </div>
 
         <div className="block justify-center items-center flex-col h-80 mt-10">
@@ -212,14 +212,10 @@ const SignUp = () => {
                     className="bg-[#134c98] flex items-center justify-center py-5"
                     block
                   >
-                    Sign Up
+                    Create new Admin
                   </Button>
                 </Col>
-                <Col span={24}>
-                  <span className="text-sm font-normal md-2 pl-[1rem] ">
-                    Already have an account? <Link to="/" className="text-[#75C2F6]">Sign In</Link>
-                  </span>
-                </Col>
+                
               </Row>
             </Form>
           </div>
