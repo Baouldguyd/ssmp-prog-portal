@@ -28,6 +28,7 @@ const Sidebar = ({open, setOpen}) => {
 
     { title: 'Task', to:'/tasks'},
     { title: "Upload Events", to : '/upload' },
+    { title: "Upload tasks", to : '/tasks' },
     
     { title: "Admin Profile", spacing: true, to : '/admin' },
     { title: "Setting", to: '/settings' },

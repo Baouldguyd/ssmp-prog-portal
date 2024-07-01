@@ -13,6 +13,7 @@ import Signin from './Pages/Signin/Sigin';
 import Students from './Pages/Students';
 import Disapproved from './Pages/Disapproved';
 import Upload from './Pages/Upload';
+import Task from './Pages/Tasks/Tasks'
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/pending" element={<PendingApplicants />} />
 
           <Route path="/disapproved" element={ <Disapproved/> } />
+          <Route path="/task" element={ <Task/> } />
           
         
         </Route>

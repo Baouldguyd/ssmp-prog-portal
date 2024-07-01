@@ -59,6 +59,7 @@ const Homepage = () => {
  
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    console.log(token);
 
     axios
       .get("https://ssmp-api.onrender.com/api/v1/user/getAllUsers", {
